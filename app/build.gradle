@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.jareven.foreverlove"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        signingConfig signingConfigs.debug
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('E:\\2020Project\\ForeverLove\\app\\zjw.jks')
+            storePassword '911218'
+            keyAlias = 'love'
+            keyPassword '960918'
+        }
+        release {
+            storeFile file('E:\\2020Project\\ForeverLove\\app\\zjw.jks')
+            storePassword '911218'
+            keyAlias = 'love'
+            keyPassword '960918'
+        }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    /*第三方依赖*/
+    implementation project(path: ':libs:thirdlibrary')
+    /*基础model*/
+    implementation project(path: ':libs:basemodel')
+
+
+}
