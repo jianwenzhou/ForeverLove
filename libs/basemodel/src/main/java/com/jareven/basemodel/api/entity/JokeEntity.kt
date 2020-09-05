@@ -11,7 +11,7 @@ package com.jareven.basemodel.api.entity
 data class JokeEntity(
     val error_code: Int,
     val reason: String,
-    val result: Result
+    val result: JokeResult
 
 ) {
     override fun toString(): String {
@@ -19,7 +19,7 @@ data class JokeEntity(
     }
 }
 
-data class Result(
+data class JokeResult(
     val data: List<Data>
 
 ) {

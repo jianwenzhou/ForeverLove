@@ -11,6 +11,13 @@ open class BaseApp :Application() {
 
     override fun onCreate() {
         super.onCreate()
+        log()
+    }
+
+    /**
+     * log输出
+     */
+    private fun log() {
         Utils.init(this)
         LogUtils.getConfig().globalTag = "Love"
     }

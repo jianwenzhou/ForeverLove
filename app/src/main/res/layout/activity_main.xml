@@ -4,19 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.main.MainActivity">
 
     <nl.joery.animatedbottombar.AnimatedBottomBar
-        android:id="@+id/bottom_bar"
+        android:id="@+id/VMainBottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF"
+        android:background="@color/white"
         app:abb_indicatorAppearance="round"
         app:abb_indicatorHeight="4dp"
         app:abb_indicatorMargin="16dp"
-        app:abb_selectedIndex="1"
+        app:abb_selectedIndex="0"
+        app:abb_tabColor="@color/colorPrimaryDark"
+        app:abb_tabColorSelected="@color/colorPrimary"
         app:abb_selectedTabType="text"
         app:abb_tabs="@menu/tabs"
+        app:abb_rippleEnabled="true"
+        app:abb_animationInterpolator="@android:anim/overshoot_interpolator"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/VMainViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/VMainBottomBar"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

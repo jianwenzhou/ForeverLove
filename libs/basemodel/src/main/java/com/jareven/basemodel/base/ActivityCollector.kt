@@ -8,23 +8,32 @@ import android.os.Process
  */
 object ActivityCollector {
 
-    private val activitys = ArrayList<Activity>()
+    private val mActivityTasks = ArrayList<Activity>()
 
+    /**
+     * 添加Activity
+     */
     fun addActivity(activity: Activity) {
-        activitys.add(activity)
+        mActivityTasks.add(activity)
     }
 
+    /**
+     * 移出Activity
+     */
     fun removeActivity(activity: Activity) {
-        activitys.remove(activity)
+        mActivityTasks.remove(activity)
     }
 
+    /**
+     * 关闭APP
+     */
     fun finishAll() {
-        for (activity in activitys) {
+        for (activity in mActivityTasks) {
             if (!activity.isFinishing) {
                 activity.finish()
             }
         }
-        activitys.clear()
+        mActivityTasks.clear()
         //杀死进程
         Process.killProcess(Process.myPid())
     }

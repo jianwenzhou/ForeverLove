@@ -8,7 +8,9 @@ import com.irozon.sneaker.Sneaker
  */
 object FSnackBarUtil {
 
-
+    /**
+     * 展示ErrorSnack
+     */
     fun showErrorMsg(act: Activity, title: String, msg: String) {
         Sneaker.with(act)
             .setTitle(title)
@@ -17,6 +19,9 @@ object FSnackBarUtil {
             .sneakError()
     }
 
+    /**
+     * 展示wSuccessSnack
+     */
     fun showSuccessMsg(act: Activity, title: String, msg: String) {
         Sneaker.with(act)
             .setTitle(title)
@@ -25,6 +30,9 @@ object FSnackBarUtil {
             .sneakSuccess()
     }
 
+    /**
+     * 展示WarningSnack
+     */
     fun showWarningMsg(act: Activity, title: String, msg: String) {
         Sneaker.with(act)
             .setTitle(title)

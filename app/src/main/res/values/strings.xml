@@ -3,6 +3,8 @@
     <string name="splash_text">我曾经跨过山和大海\n也穿过人山人海\n我曾经失落失望失掉所有方向\n直到看见小芳才是唯一的答案</string>
 
     <string name="app_net_permission_tip">网络权限未授予！</string>
+    <string name="app_location_permission_tip">定位权限未授予！</string>
     <string name="app_exit_app_tip">再按一次，退出程序</string>
+    <string name="splash_skip_string">跳过</string>
 
 </resources>

@@ -11,6 +11,16 @@ package com.jareven.foreverlove.const
 object NetConst {
 
     /*聚合数据请求使用的key*/
-    val JuHeKey: String = "b09a8acc184998e7f295fa19d8dd63aa"
+
+    /**
+     * 笑话
+     */
+    val JokeJuHeKey: String = "b09a8acc184998e7f295fa19d8dd63aa"
+
+
+    /**
+     * 天气
+     */
+    val SimpleWeatherJuHeKey: String = "0f6fa8f03e1786ec5bd682d83f76dd04"
 
 }

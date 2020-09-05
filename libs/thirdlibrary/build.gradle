@@ -30,6 +30,9 @@ dependencies {
     api "androidx.core:core-ktx:$core_ktx"
     api "androidx.constraintlayout:constraintlayout:$constraintlayout"
 
+    /*view model*/
+    api "androidx.lifecycle:lifecycle-extensions:$lifecycle"
+
     /*kotlin 协程*/
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_core"
 
@@ -56,5 +59,11 @@ dependencies {
 
     //带动画的底部导航栏库
     api "nl.joery.animatedbottombar:library:$library"
+
+    //viewpager2
+    api "androidx.viewpager2:viewpager2:$viewpager2"
+
+    //加载中控件
+    api "com.wang.avi:library:$loadingView"
 
 }

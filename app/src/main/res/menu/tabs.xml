@@ -2,17 +2,17 @@
     <item
         android:id="@+id/tab_home"
         android:icon="@mipmap/home"
-        android:title="亲爱" />
+        android:title="首页" />
     <item
         android:id="@+id/tab_alarm"
         android:icon="@mipmap/hot"
-        android:title="热爱" />
+        android:title="生活" />
     <item
         android:id="@+id/tab_bread"
         android:icon="@mipmap/view"
-        android:title="心爱" />
+        android:title="世界" />
     <item
         android:id="@+id/tab_cart"
         android:icon="@mipmap/fun"
-        android:title="疼爱" />
+        android:title="发现" />
 </menu>
