@@ -1,7 +1,7 @@
 package com.jareven.foreverlove.activity.splash
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jareven.basemodel.api.callback.DataCallback
 import com.jareven.basemodel.api.entity.WeatherEntity
 import com.jareven.basemodel.api.manager.ApiFactory
 import com.jareven.basemodel.api.manager.CallBackWrapper
@@ -10,16 +10,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 /**
- * @ClassName SplashVIewModel
+ * @ClassName SplashViewModel
  * @Description TODO
  * @Author zjw
  * @Date 2020/9/6 1:21
  * @Version 1.0
  * 简介：闪屏页，获取天气信息
  */
-class SplashVIewModel : ViewModel() {
+class SplashViewModel : ViewModel() {
+    private var weatherLiveData: MutableLiveData<WeatherEntity> = MutableLiveData()
 
-    fun getSimpleWeather(city: String,callback: DataCallback<WeatherEntity>) {
+    fun getWeatherLiveData (): MutableLiveData<WeatherEntity> {
+        return weatherLiveData
+    }
+
+    fun getSimpleWeather(city: String) {
 
         ApiFactory.getJuHeData()
             .getSimpleWeather(city, NetConst.SimpleWeatherJuHeKey)
@@ -29,19 +34,15 @@ class SplashVIewModel : ViewModel() {
                 object : CallBackWrapper<WeatherEntity>() {
                     override fun onSuccess(t: WeatherEntity) {
                         if (t.error_code == 0) {
-                            callback.onSuccess(t)
+                            weatherLiveData.value = t
                         } else {
-                            callback.onError(t.reason,t.error_code)
+                            onError(t.reason, t.error_code)
                         }
                     }
-
-                    override fun onError(msg: String, code: Int) {
-                        callback.onError(msg,code)
-                    }
-
 
                 })
 
     }
+
 
 }

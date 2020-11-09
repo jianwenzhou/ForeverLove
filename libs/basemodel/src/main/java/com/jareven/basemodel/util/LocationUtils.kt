@@ -2,10 +2,9 @@ package com.jareven.basemodel.util
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
-import android.location.*
-import android.os.Bundle
-import com.blankj.utilcode.util.LogUtils
+import android.location.Criteria
+import android.location.Geocoder
+import android.location.LocationManager
 import java.io.IOException
 import java.util.*
 
@@ -26,7 +25,8 @@ object LocationUtils {
         var strLocation = "未知"
         try {
             //获取系统的服务，
-            val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val locationManager =
+                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             //创建一个criteria对象 根据设备自动选择定位方式
             val criteria = Criteria()
             criteria.accuracy = Criteria.ACCURACY_COARSE
@@ -37,7 +37,7 @@ object LocationUtils {
             criteria.isCostAllowed = true
             //要求低耗电
             criteria.powerRequirement = Criteria.POWER_LOW
-            val provider = locationManager.getBestProvider(criteria, true)
+            val provider = locationManager.getBestProvider(criteria, true) ?: return strLocation
 
             val location = locationManager.getLastKnownLocation(provider)
 
@@ -54,27 +54,6 @@ object LocationUtils {
         return strLocation
 
     }
-
-    /**
-     * LocationListern监听器
-     * 参数：地理位置提供器、监听位置变化的时间间隔、位置变化的距离间隔、LocationListener监听器
-     */
-    private val locationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-
-        }
-
-        override fun onProviderDisabled(provider: String) {
-            LogUtils.i("LocationUtils", "Provider now is disabled..")
-        }
-
-        override fun onProviderEnabled(provider: String) {
-            LogUtils.i("LocationUtils", "Provider now is enabled..")
-        }
-
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-    }
-
 
     /**
      * @param latitude
@@ -102,17 +81,6 @@ object LocationUtils {
 
         return mStringBuilder.toString()
     }
-
-    private fun checkPermission(context: Context, permName: permission): Boolean {
-        val perm = context.checkCallingOrSelfPermission("android.permission.$permName")
-        return perm == PackageManager.PERMISSION_GRANTED
-    }
-
-    private enum class permission {
-        ACCESS_COARSE_LOCATION,
-        ACCESS_FINE_LOCATION
-    }
-
 
 
 }

@@ -3,6 +3,8 @@ package com.jareven.basemodel.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.LogUtils
+import com.jareven.basemodel.callback.PermissionCallback
+import com.yanzhenjie.permission.AndPermission
 
 /**
  * 简介：Activity基类
@@ -44,6 +46,23 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         ActivityCollector.removeActivity(this)
+    }
+
+
+    /**
+     * 定位权限申请
+     */
+    protected fun requestPermission(callback: PermissionCallback, vararg permissions: String) {
+        AndPermission.with(this)
+            .runtime()
+            .permission(permissions)
+            .onGranted {
+                callback.onGranted()
+            }
+            .onDenied {
+                callback.onDenied()
+            }
+            .start()
     }
 
 }

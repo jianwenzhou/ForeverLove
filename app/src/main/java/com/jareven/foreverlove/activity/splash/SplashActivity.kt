@@ -1,19 +1,18 @@
 package com.jareven.foreverlove.activity.splash
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.graphics.Color
-import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.LogUtils
-import com.jareven.basemodel.api.callback.DataCallback
 import com.jareven.basemodel.api.entity.WeatherEntity
 import com.jareven.basemodel.base.BaseActivity
+import com.jareven.basemodel.callback.PermissionCallback
 import com.jareven.basemodel.util.FToastUtil
 import com.jareven.basemodel.util.LocationUtils
 import com.jareven.foreverlove.R
 import com.jareven.foreverlove.activity.main.MainActivity
-import com.yanzhenjie.permission.AndPermission
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
@@ -22,20 +21,24 @@ import kotlinx.android.synthetic.main.activity_splash.*
  */
 class SplashActivity : BaseActivity() {
 
-    lateinit var viewModel: SplashVIewModel
+    private lateinit var viewModel: SplashViewModel
 
     override fun getLayoutID(): Int {
         return R.layout.activity_splash
     }
 
     override fun initView() {
-        splash_content_tv.typeface = ResourcesCompat.getFont(this, R.font.alibaba)
-        splash_skip_btn.setOnClickListener {jumpToMain()}
+        splash_skip_tv.setOnClickListener { jumpToMain() }
     }
 
     override fun initData() {
-        viewModel = ViewModelProvider(this).get(SplashVIewModel::class.java)
-        requestPermission()
+        viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
+
+        requestPermission(
+            permissionsCallback,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
     }
 
     override fun initStatusBar() {
@@ -43,27 +46,26 @@ class SplashActivity : BaseActivity() {
         BarUtils.setStatusBarLightMode(this, true)
         //状态栏背景透明
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT)
+
+        BarUtils.setNavBarVisibility(this, false)
     }
 
+
     /**
-     * 定位权限申请
+     * 权限申请回调
      */
-    private fun requestPermission() {
-        AndPermission.with(this)
-            .runtime()
-            .permission(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            .onGranted {
-                loadWeather()
-            }
-            .onDenied {
-                loadWeather()
-                FToastUtil.showShort(getString(R.string.app_location_permission_tip))
-            }
-            .start()
+    private val permissionsCallback = object : PermissionCallback() {
+        override fun onGranted() {
+            loadWeather()
+        }
+
+        override fun onDenied() {
+            loadWeather()
+            FToastUtil.showShort(getString(R.string.app_location_permission_tip))
+        }
+
     }
+
 
     /**
      * 从网络获取天气信息
@@ -73,25 +75,33 @@ class SplashActivity : BaseActivity() {
         val locations = LocationUtils.getLocations(this)
         //获取天气信息,裁剪掉 市 字
         val city = locations.substring(0, locations.length - 1)
-        viewModel.getSimpleWeather(city, callback)
+
+        viewModel.getSimpleWeather(city)
+
+        viewModel.getWeatherLiveData().observe(this, Observer<WeatherEntity> { t: WeatherEntity? ->
+            setWeatherText(t)
+        })
     }
+
 
     /**
-     * 数据回调
+     * 展示数据
      */
-    private val callback = object : DataCallback<WeatherEntity>() {
-        override fun onSuccess(t: WeatherEntity) {
-            setWeatherText(t.result.realtime.toString())
+    private fun setWeatherText(weather: WeatherEntity?) {
+        weather?.result?.let {
+            val weatherText: String =
+                it.city + "\n" + it.future[0].date + "\n" + it.future[0].weather + "\n" +
+                        it.future[0].temperature + "\n" + "遇见你很美好"
+
+            val alphaAnimator = ObjectAnimator.ofFloat(
+                splash_content_tv,
+                "alpha", 0f, 0f, 1f
+            )
+            alphaAnimator.duration = 2000
+            splash_content_tv.text = weatherText
+            alphaAnimator.start()
         }
 
-        override fun onError(msg: String, code: Int) {
-            LogUtils.e(msg)
-        }
-    }
-
-
-    fun setWeatherText(text: CharSequence) {
-        splash_content_tv.text = text
     }
 
 

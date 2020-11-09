@@ -40,6 +40,10 @@ android {
             keyPassword '960918'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 

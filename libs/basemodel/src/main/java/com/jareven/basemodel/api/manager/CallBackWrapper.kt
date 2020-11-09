@@ -43,6 +43,6 @@ abstract class CallBackWrapper<T> : Observer<T> {
 
     abstract fun onSuccess(t: T)
 
-    abstract fun onError(msg: String, code: Int)
+    fun onError(msg: String, code: Int){}
 
 }
