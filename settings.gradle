@@ -1,5 +1,10 @@
 include ':app'
-include ':libs:basemodel'
-include ':libs:thirdlibrary'
-include ':libs:loglibrary'
+
+include ':model:imagemodel'
+include ':model:webmodel'
+include ':model:logmodel'
+
+include ':base:basemodel'
+include ':base:thirdlibrary'
+
 rootProject.name='ForeverLove'

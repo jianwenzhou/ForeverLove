@@ -1,5 +1,0 @@
-1.basemodel :负责基类的封装.工具类的收集
-
-2.thirdlibrary :专门放置公用的第三方资源
-
-3.loglibrary : 日志管理，打印日志，文件日志，日志上报

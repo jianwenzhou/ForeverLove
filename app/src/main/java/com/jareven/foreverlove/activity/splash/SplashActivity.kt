@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.graphics.Color
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BarUtils
 import com.jareven.basemodel.api.entity.WeatherEntity
 import com.jareven.basemodel.base.BaseActivity
@@ -12,7 +13,7 @@ import com.jareven.basemodel.callback.PermissionCallback
 import com.jareven.basemodel.util.FToastUtil
 import com.jareven.basemodel.util.LocationUtils
 import com.jareven.foreverlove.R
-import com.jareven.foreverlove.activity.main.MainActivity
+import com.richinfo.webmodel.WebActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
@@ -109,7 +110,9 @@ class SplashActivity : BaseActivity() {
      * 跳转
      */
     private fun jumpToMain() {
-        MainActivity.actionStart(this)
+        //MainActivity.actionStart(this)
+        WebActivity.launch(this)
+
         finish()
     }
 }
