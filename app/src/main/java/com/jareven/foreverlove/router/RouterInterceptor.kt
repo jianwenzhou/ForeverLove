@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.LogUtils
  * @Date 2020/12/11 10:32
  * 简介：路由拦截器，一般作为登录判断，所以防止app模块
  */
-@Interceptor(priority = 1, name = "拦截器")
+@Interceptor(priority = 9, name = "拦截器")
 internal class RouterInterceptor : IInterceptor {
     override fun process(postcard: Postcard, callback: InterceptorCallback) {
         LogUtils.d("拦截器测试")

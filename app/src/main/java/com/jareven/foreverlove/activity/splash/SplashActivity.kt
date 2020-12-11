@@ -5,8 +5,8 @@ import android.animation.ObjectAnimator
 import android.graphics.Color
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.LogUtils
 import com.jareven.basemodel.api.entity.WeatherEntity
 import com.jareven.basemodel.base.BaseActivity
 import com.jareven.basemodel.callback.PermissionCallback
@@ -75,6 +75,7 @@ class SplashActivity : BaseActivity() {
         //获取位置信息
         val locations = LocationUtils.getLocations(this)
         //获取天气信息,裁剪掉 市 字
+        LogUtils.d("city=$locations")
         val city = locations.substring(0, locations.length - 1)
 
         viewModel.getSimpleWeather(city)

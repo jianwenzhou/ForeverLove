@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.Criteria
 import android.location.Geocoder
 import android.location.LocationManager
+import com.blankj.utilcode.util.StringUtils
 import java.io.IOException
 import java.util.*
 
@@ -49,6 +50,11 @@ object LocationUtils {
 
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+
+        //默认值
+        if (StringUtils.isEmpty(strLocation)){
+            strLocation = "深圳"
         }
 
         return strLocation
