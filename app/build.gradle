@@ -52,12 +52,19 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /*第三方依赖*/
-    implementation project(path: ':base:thirdlibrary')
+    implementation project(path: ':base:impmodel')
     /*基础model*/
     implementation project(path: ':base:basemodel')
+    /*http model*/
+    implementation project(path: ':base:httpmodel')
+
     /*组件*/
     implementation project(path: ':model:imagemodel')
-    implementation project(path: ':model:logmodel')
+    implementation project(path: ':model:loginmodel')
     implementation project(path: ':model:webmodel')
+    implementation project(path: ':model:homemodel')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
 }

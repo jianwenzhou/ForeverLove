@@ -1,0 +1,13 @@
+<resources>
+
+    <!--闪屏页面秒开 主题-->
+    <style name="homemodel_SplashTheme" parent="basemodel_AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/homemodel_bg_splash</item>
+    </style>
+
+
+</resources>

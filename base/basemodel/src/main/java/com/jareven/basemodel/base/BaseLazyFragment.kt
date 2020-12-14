@@ -34,7 +34,7 @@ abstract class BaseLazyFragment : BaseFragment() {
     /**
      * 懒加载一次。如果只想在对用户可见时才加载数据，并且只加载一次数据，在子类中重写该方法
      */
-    fun onLazyLoadOnce() {
+    open fun onLazyLoadOnce() {
 
     }
 

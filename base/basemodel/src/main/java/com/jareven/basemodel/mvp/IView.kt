@@ -9,4 +9,11 @@ package com.jareven.basemodel.mvp
  * 简介：
  */
 interface IView {
+
+    fun showLoading(isPull: Boolean)
+
+    fun showContent()
+
+    fun showMessage(msg: String)
+
 }

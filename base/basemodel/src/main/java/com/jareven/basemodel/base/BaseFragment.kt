@@ -21,8 +21,11 @@ abstract class BaseFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       return View.inflate(activity,getLayoutID(),null)
+        val view = View.inflate(activity, getLayoutID(), null)
+        initView(view)
+        return view
     }
+
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -35,7 +38,9 @@ abstract class BaseFragment : Fragment(){
      */
     abstract fun getLayoutID(): Int
 
-    abstract fun initData()
+    abstract fun initView(view: View?)
+
+    open fun initData(){}
 
 
 }

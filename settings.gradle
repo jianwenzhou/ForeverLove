@@ -1,10 +1,12 @@
+include ':base:httpmodel'
 include ':app'
 
+include ':model:homemodel'
 include ':model:imagemodel'
 include ':model:webmodel'
-include ':model:logmodel'
+include ':model:loginmodel'
 
 include ':base:basemodel'
-include ':base:thirdlibrary'
+include ':base:impmodel'
 
 rootProject.name='ForeverLove'

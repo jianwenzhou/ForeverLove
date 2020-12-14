@@ -1,0 +1,12 @@
+<resources>
+    <string name="homemodel_exit_app_tip">再按一次，退出程序</string>
+
+    <string name="homemodel_splash_text">我曾经跨过山和大海\n也穿过人山人海\n我曾经失落失望失掉所有方向\n直到看见小芳才是唯一的答案</string>
+
+    <string name="homemodel_app_location_permission_tip">定位权限未授予！</string>
+    <string name="homemodel_splash_skip_string">跳过</string>
+    <string name="homemodel_not_more_data">—— 没有更多数据了 ——</string>
+    <string name="homemodel_empty_data">页面暂无数据</string>
+    <string name="homemodel_error_data">页面数据异常</string>
+
+</resources>

@@ -33,4 +33,9 @@ open class BaseApp : Application() {
         LogUtils.getConfig().globalTag = "Love"
     }
 
+    override fun onTerminate() {
+        super.onTerminate()
+        ARouter.getInstance().destroy()
+    }
+
 }

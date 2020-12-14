@@ -10,6 +10,8 @@ class RouterPathConst {
 
 
     companion object {
+        const val ROUTER_HOMEMODEL_SPLASH_ACTIVITY = "/homemodel/splash/activity"
+        const val ROUTER_HOMEMODEL_HOME_ACTIVITY = "/homemodel/home/activity"
         const val ROUTER_WEBMODEL_WEB_ACTIVITY = "/webmodel/web/activity"
         const val ROUTER_IMAGEMODEL_IMAGE_ACTIVITY = "/imagemodel/image/activity"
     }

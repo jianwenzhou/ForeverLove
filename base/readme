@@ -2,4 +2,6 @@
 
 1.basemodel :负责基类的封装.工具类的收集
 
-2.thirdlibrary :专门放置公用的第三方资源
+2.impmodel :专门放置公用的第三方资源
+
+3.httpmodel :网络请求基类

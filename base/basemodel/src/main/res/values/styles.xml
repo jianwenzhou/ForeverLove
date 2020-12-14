@@ -1,0 +1,27 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="basemodel_AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/basemodel_AnimationActivity</item>
+
+    </style>
+
+    <!--Activity进场。出场动画-->
+    <style name="basemodel_AnimationActivity" parent="@android:style/Animation.Activity">
+        <!--用于设置打开新的Activity并进入新的Activity展示的动画-->
+        <item name="android:activityOpenEnterAnimation">@anim/basemodel_slide_in_right</item>
+        <!--用于设置打开新的Activity并销毁之前的Activity展示的动画-->
+        <item name="android:activityOpenExitAnimation">@anim/basemodel_slide_out_left</item>
+        <!--用于设置关闭当前Activity进入上一个Activity展示的动画-->
+        <item name="android:activityCloseEnterAnimation">@anim/basemodel_slide_in_left</item>
+        <!--用于设置关闭当前Activity时展示的动画-->
+        <item name="android:activityCloseExitAnimation">@anim/basemodel_slide_out_right</item>
+    </style>
+
+</resources>

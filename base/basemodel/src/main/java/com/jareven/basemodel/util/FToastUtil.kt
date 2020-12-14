@@ -1,5 +1,6 @@
 package com.jareven.basemodel.util
 
+import android.view.Gravity
 import com.blankj.utilcode.util.ToastUtils
 import com.jareven.basemodel.R
 
@@ -18,7 +19,6 @@ object FToastUtil {
      */
     fun showShort(message: CharSequence) {
         cancel()
-        ToastUtils.setBgResource(R.drawable.basemodel_shape_rectangle_black_radius_24)
         ToastUtils.showShort(message)
     }
 
@@ -28,7 +28,6 @@ object FToastUtil {
      */
     fun showLong(message: CharSequence) {
         cancel()
-        ToastUtils.setBgResource(R.drawable.basemodel_shape_rectangle_black_radius_24)
         ToastUtils.showLong(message)
     }
 
