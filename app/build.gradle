@@ -59,12 +59,12 @@ dependencies {
     implementation project(path: ':base:httpmodel')
 
     /*组件*/
-    implementation project(path: ':model:imagemodel')
-    implementation project(path: ':model:loginmodel')
-    implementation project(path: ':model:webmodel')
-    implementation project(path: ':model:homemodel')
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    if (!IsModel.toBoolean()) {
+        implementation project(path: ':model:imagemodel')
+        implementation project(path: ':model:loginmodel')
+        implementation project(path: ':model:webmodel')
+        implementation project(path: ':model:homemodel')
+    }
+
 
 }
