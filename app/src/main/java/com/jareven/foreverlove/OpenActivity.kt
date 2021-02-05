@@ -1,7 +1,5 @@
 package com.jareven.foreverlove
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.jareven.basemodel.base.BaseActivity
 import com.jareven.basemodel.cons.RouterPathConst
 

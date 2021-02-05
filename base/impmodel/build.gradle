@@ -104,4 +104,8 @@ dependencies {
 
     //占位动画
     api "me.samlss:broccoli:$broccoli"
+
+    //photoview
+    api "com.bm.photoview:library:$photoview"
+
 }

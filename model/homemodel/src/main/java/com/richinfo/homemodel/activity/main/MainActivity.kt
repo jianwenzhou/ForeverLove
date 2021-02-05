@@ -9,7 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.jareven.basemodel.base.BaseActivity
 import com.jareven.basemodel.cons.RouterPathConst
-import com.jareven.basemodel.util.FToastUtil
+import com.jareven.basemodel.utils.FToastUtils
 import com.richinfo.homemodel.R
 import com.richinfo.homemodel.activity.main.found.FoundFragment
 import com.richinfo.homemodel.activity.main.home.HomeFragment
@@ -87,11 +87,11 @@ open class MainActivity : BaseActivity() {
     override fun onBackPressed() {
         val interval = System.currentTimeMillis() - mStartMills
         if (interval > 1500) {
-            FToastUtil.showShort(getString(R.string.homemodel_exit_app_tip))
+            FToastUtils.showShort(getString(R.string.homemodel_exit_app_tip))
             mStartMills = System.currentTimeMillis()
         } else {
             //退出到后台
-            FToastUtil.cancel()
+            FToastUtils.cancel()
             moveTaskToBack(isFinishing)
             //完全退出APP，杀死进程
             //ActivityCollector.finishAll()

@@ -1,4 +1,4 @@
-package com.jareven.basemodel.util
+package com.jareven.basemodel.utils
 
 import android.annotation.SuppressLint
 import android.content.Context

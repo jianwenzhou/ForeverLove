@@ -2,8 +2,10 @@ package com.richinfo.homemodel.activity.main.home
 
 
 import android.view.View
+import com.bumptech.glide.Glide
 import com.jareven.basemodel.base.BaseLazyFragment
 import com.richinfo.homemodel.R
+import kotlinx.android.synthetic.main.homemodel_fragment_main_home.*
 
 /**
  * @ClassName HomeFragment
@@ -21,12 +23,11 @@ class HomeFragment : BaseLazyFragment() {
     }
 
     override fun initView(view: View?) {
-
     }
 
 
     override fun initData() {
-
+        Glide.with(this).load(R.mipmap.test).into(homemodel_imageview)
     }
 
 

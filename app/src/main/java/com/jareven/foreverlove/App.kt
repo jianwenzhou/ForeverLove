@@ -10,4 +10,18 @@ import com.jareven.basemodel.base.BaseApp
  * @Version 1.0
  * 简介：APP
  */
-class App : BaseApp() 
+class App : BaseApp() {
+
+
+    override fun onCreate() {
+        super.onCreate()
+        initLifecycle()
+    }
+
+
+    private fun initLifecycle() {
+        //绑定Activity的Rx生命周期
+        registerActivityLifecycleCallbacks(AppLifecycleCallbacks())
+    }
+
+}

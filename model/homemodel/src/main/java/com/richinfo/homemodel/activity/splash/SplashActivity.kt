@@ -12,8 +12,8 @@ import com.jareven.basemodel.api.entity.WeatherEntity
 import com.jareven.basemodel.base.BaseActivity
 import com.jareven.basemodel.callback.PermissionCallback
 import com.jareven.basemodel.cons.RouterPathConst
-import com.jareven.basemodel.util.FToastUtil
-import com.jareven.basemodel.util.LocationUtils
+import com.jareven.basemodel.utils.FToastUtils
+import com.jareven.basemodel.utils.LocationUtils
 import com.jareven.foreverlove.activity.splash.SplashViewModel
 import com.richinfo.homemodel.R
 import kotlinx.android.synthetic.main.homemodel_activity_splash.*
@@ -35,6 +35,7 @@ class SplashActivity : BaseActivity() {
         splash_skip_tv.setOnClickListener { jumpToMain() }
     }
 
+
     override fun initData() {
         viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
 
@@ -52,6 +53,8 @@ class SplashActivity : BaseActivity() {
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT)
 
         BarUtils.setNavBarVisibility(this, false)
+
+
     }
 
 
@@ -65,7 +68,7 @@ class SplashActivity : BaseActivity() {
 
         override fun onDenied() {
             loadWeather()
-            FToastUtil.showShort(getString(R.string.homemodel_app_location_permission_tip))
+            FToastUtils.showShort(getString(R.string.homemodel_app_location_permission_tip))
         }
 
     }
@@ -117,4 +120,6 @@ class SplashActivity : BaseActivity() {
         routerJump(RouterPathConst.ROUTER_HOMEMODEL_HOME_ACTIVITY)
         finish()
     }
+
+
 }

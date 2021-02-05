@@ -1,10 +1,12 @@
 package com.jareven.basemodel.base
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.launcher.ARouter
 
 /**
  * @ClassName BaseFragment
@@ -40,7 +42,35 @@ abstract class BaseFragment : Fragment(){
 
     abstract fun initView(view: View?)
 
-    open fun initData(){}
+    open fun initData() {}
+
+    /**
+     * 路由跳转
+     */
+    protected fun routerJump(path: String) {
+        ARouter.getInstance()
+            .build(path)
+            .navigation()
+    }
 
 
+    /**
+     * 路由跳转,带入参 Parcelable
+     */
+    protected fun routerJump(path: String, key: String, value: Parcelable) {
+        ARouter.getInstance()
+            .build(path)
+            .withParcelable(key, value)
+            .navigation()
+    }
+
+    /**
+     * 路由跳转,带入参 Bundle
+     */
+    protected fun routerJump(path: String, key: String, value: Bundle) {
+        ARouter.getInstance()
+            .build(path)
+            .withBundle(key, value)
+            .navigation()
+    }
 }

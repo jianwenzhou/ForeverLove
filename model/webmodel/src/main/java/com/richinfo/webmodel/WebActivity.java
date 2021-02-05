@@ -2,7 +2,6 @@ package com.richinfo.webmodel;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.jareven.basemodel.base.BaseActivity;
@@ -26,11 +25,7 @@ public class WebActivity extends BaseActivity {
     @Override
     public void initView() {
 
-        Bundle bundle = new Bundle();
-        bundle.putString("name","zhangsan");
-        bundle.putInt("age",158);
 
-        routerJump(RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY,"bundle",bundle);
 
     }
 }

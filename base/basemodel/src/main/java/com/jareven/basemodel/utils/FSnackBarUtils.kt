@@ -1,4 +1,4 @@
-package com.jareven.basemodel.util
+package com.jareven.basemodel.utils
 
 import android.app.Activity
 import com.irozon.sneaker.Sneaker
@@ -6,7 +6,7 @@ import com.irozon.sneaker.Sneaker
 /**
  * SnackBar基类
  */
-object FSnackBarUtil {
+object FSnackBarUtils {
 
     /**
      * 展示ErrorSnack

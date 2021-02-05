@@ -1,13 +1,17 @@
 package com.richinfo.homemodel.activity.main.world
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.blankj.utilcode.util.LogUtils
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.base.BaseLazyFragment
-import com.jareven.basemodel.util.FToastUtil
+import com.jareven.basemodel.cons.RouterPathConst
+import com.jareven.basemodel.utils.FToastUtils
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
 import com.richinfo.httpmodel.api.entity.ImageEntity
@@ -55,6 +59,14 @@ class WorldFragment : BaseLazyFragment(), WorldView<ImageEntity> {
 
         adapter.setOnLoadMoreListener({ loadData(false) }, recyclerView)
         refreshLayout?.setOnRefreshListener { loadData(true) }
+        adapter.onItemClickListener =
+            BaseQuickAdapter.OnItemClickListener() { baseQuickAdapter, _, i ->
+                val item = baseQuickAdapter.getItem(i) as Hit
+                val bundle = Bundle()
+                LogUtils.d(item.webformatURL)
+                bundle.putString("largeImageURL", item.largeImageURL)
+                routerJump(RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY, "bundle", bundle)
+            }
     }
 
 
@@ -82,10 +94,16 @@ class WorldFragment : BaseLazyFragment(), WorldView<ImageEntity> {
 
     override fun setEmptyOrErrorView(isEmpty: Boolean) {
         showLoading(false)
-        if (isEmpty){
-            adapter.setEmptyView(R.layout.homemodel_recycler_empty, recyclerView?.parent as ViewGroup)
-        }else{
-            adapter.setEmptyView(R.layout.homemodel_recycler_error, recyclerView?.parent as ViewGroup)
+        if (isEmpty) {
+            adapter.setEmptyView(
+                R.layout.homemodel_recycler_empty,
+                recyclerView?.parent as ViewGroup
+            )
+        } else {
+            adapter.setEmptyView(
+                R.layout.homemodel_recycler_error,
+                recyclerView?.parent as ViewGroup
+            )
         }
     }
 
@@ -100,7 +118,7 @@ class WorldFragment : BaseLazyFragment(), WorldView<ImageEntity> {
     }
 
     override fun showMessage(msg: String) {
-        FToastUtil.showShort(msg)
+        FToastUtils.showShort(msg)
     }
 
     override fun loadMoreComplete() {
@@ -127,8 +145,6 @@ class WorldFragment : BaseLazyFragment(), WorldView<ImageEntity> {
     private fun removeFooterView() {
         adapter.removeAllFooterView()
     }
-
-
 
 
 }

@@ -1,8 +1,6 @@
-package com.jareven.basemodel.util
+package com.jareven.basemodel.utils
 
-import android.view.Gravity
 import com.blankj.utilcode.util.ToastUtils
-import com.jareven.basemodel.R
 
 /**
  * @ClassName FToastUtil
@@ -12,7 +10,7 @@ import com.jareven.basemodel.R
  * @Version 1.0
  * 简介：Toast基类
  */
-object FToastUtil {
+object FToastUtils {
 
     /***
      * 短时间展示Toast

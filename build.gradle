@@ -34,6 +34,7 @@ buildscript {
         baseAdapterHelper="2.9.50"
         swiperefreshlayout="1.1.0"
         broccoli="1.0.0"
+        photoview="1.4.1"
     }
 
 
