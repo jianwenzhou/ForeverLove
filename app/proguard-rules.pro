@@ -40,3 +40,6 @@
 -keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
      <init>(...);
 }
+
+#NoProguard子类均不混淆
+-keep class * implements com.jareven.thirdlibrary.NoProguard {*;}

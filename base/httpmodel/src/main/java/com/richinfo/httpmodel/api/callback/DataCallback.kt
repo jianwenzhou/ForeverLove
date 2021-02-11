@@ -1,4 +1,4 @@
-package com.jareven.basemodel.api.callback
+package com.richinfo.httpmodel.api.callback
 
 /**
  * @ClassName DataCallback

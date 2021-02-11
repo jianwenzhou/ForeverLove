@@ -1,6 +1,6 @@
-package com.jareven.basemodel.api.manager
+package com.richinfo.httpmodel.api.manager
 
-import com.jareven.basemodel.api.controller.JuHeDataController
+import com.richinfo.httpmodel.api.controller.JuHeDataController
 import com.richinfo.httpmodel.api.controller.PixabayDataController
 
 /**

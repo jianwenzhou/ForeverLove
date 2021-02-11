@@ -10,8 +10,6 @@ data class ImageEntity(
     val hits: List<Hit>,
     val total: Int,
     val totalHits: Int
-
-
 ) {
     override fun toString(): String {
         return "ImageEntity(hits=$hits, total=$total, totalHits=$totalHits)"
@@ -41,7 +39,6 @@ data class Hit(
     val webformatHeight: Int,
     val webformatURL: String,
     val webformatWidth: Int
-
 
 
 ) {

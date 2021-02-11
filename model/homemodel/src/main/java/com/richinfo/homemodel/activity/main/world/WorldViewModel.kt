@@ -1,9 +1,9 @@
 package com.richinfo.homemodel.activity.main.world
 
 import androidx.lifecycle.ViewModel
-import com.jareven.basemodel.api.manager.ApiFactory
-import com.richinfo.homemodel.const.NetConst
+import com.richinfo.httpmodel.api.const.NetConst
 import com.richinfo.httpmodel.api.entity.ImageEntity
+import com.richinfo.httpmodel.api.manager.ApiFactory
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

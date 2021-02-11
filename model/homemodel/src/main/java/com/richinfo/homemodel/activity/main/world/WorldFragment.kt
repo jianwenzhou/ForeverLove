@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.CacheDiskUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.base.BaseLazyFragment
 import com.jareven.basemodel.cons.RouterPathConst
@@ -60,10 +61,14 @@ class WorldFragment : BaseLazyFragment(), WorldView<ImageEntity> {
         adapter.setOnLoadMoreListener({ loadData(false) }, recyclerView)
         refreshLayout?.setOnRefreshListener { loadData(true) }
         adapter.onItemClickListener =
-            BaseQuickAdapter.OnItemClickListener() { baseQuickAdapter, _, i ->
+            BaseQuickAdapter.OnItemClickListener() { baseQuickAdapter, v, i ->
+                //item中获取imageView
+                val imView = v.findViewById<ImageView>(R.id.word_item_cover_iv)
                 val item = baseQuickAdapter.getItem(i) as Hit
+
+                CacheDiskUtils.getInstance().put(item.largeImageURL, imView.drawable)
+
                 val bundle = Bundle()
-                LogUtils.d(item.webformatURL)
                 bundle.putString("largeImageURL", item.largeImageURL)
                 routerJump(RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY, "bundle", bundle)
             }

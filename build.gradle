@@ -35,6 +35,7 @@ buildscript {
         swiperefreshlayout="1.1.0"
         broccoli="1.0.0"
         photoview="1.4.1"
+        palette="1.0.0"
     }
 
 

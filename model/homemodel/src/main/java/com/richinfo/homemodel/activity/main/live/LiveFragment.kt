@@ -2,13 +2,12 @@ package com.richinfo.homemodel.activity.main.live
 
 import android.view.View
 import com.blankj.utilcode.util.LogUtils
-import com.jareven.basemodel.api.entity.JokeEntity
-import com.jareven.basemodel.api.manager.ApiFactory
-import com.jareven.basemodel.api.manager.CallBackWrapper
-
 import com.jareven.basemodel.base.BaseLazyFragment
 import com.richinfo.homemodel.R
-import com.richinfo.homemodel.const.NetConst
+import com.richinfo.httpmodel.api.const.NetConst
+import com.richinfo.httpmodel.api.entity.JokeEntity
+import com.richinfo.httpmodel.api.manager.ApiFactory
+import com.richinfo.httpmodel.api.manager.CallBackWrapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.homemodel_fragment_main_live.*

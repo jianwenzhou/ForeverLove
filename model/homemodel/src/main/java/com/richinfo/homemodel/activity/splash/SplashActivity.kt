@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.LogUtils
-import com.jareven.basemodel.api.entity.WeatherEntity
 import com.jareven.basemodel.base.BaseActivity
 import com.jareven.basemodel.callback.PermissionCallback
 import com.jareven.basemodel.cons.RouterPathConst
@@ -16,6 +15,7 @@ import com.jareven.basemodel.utils.FToastUtils
 import com.jareven.basemodel.utils.LocationUtils
 import com.jareven.foreverlove.activity.splash.SplashViewModel
 import com.richinfo.homemodel.R
+import com.richinfo.httpmodel.api.entity.WeatherEntity
 import kotlinx.android.synthetic.main.homemodel_activity_splash.*
 
 
@@ -96,6 +96,7 @@ class SplashActivity : BaseActivity() {
      * 展示数据
      */
     private fun setWeatherText(weather: WeatherEntity?) {
+        LogUtils.d(weather)
         weather?.result?.let {
             val weatherText: String =
                 it.city + "\n" + it.future[0].date + "\n" + it.future[0].weather + "\n" +

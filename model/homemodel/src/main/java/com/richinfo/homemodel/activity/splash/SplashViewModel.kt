@@ -2,10 +2,10 @@ package com.jareven.foreverlove.activity.splash
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jareven.basemodel.api.entity.WeatherEntity
-import com.jareven.basemodel.api.manager.ApiFactory
-import com.jareven.basemodel.api.manager.CallBackWrapper
-import com.richinfo.homemodel.const.NetConst
+import com.richinfo.httpmodel.api.const.NetConst
+import com.richinfo.httpmodel.api.entity.WeatherEntity
+import com.richinfo.httpmodel.api.manager.ApiFactory
+import com.richinfo.httpmodel.api.manager.CallBackWrapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

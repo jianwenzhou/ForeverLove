@@ -1,7 +1,7 @@
-package com.jareven.basemodel.api.controller
+package com.richinfo.httpmodel.api.controller
 
-import com.jareven.basemodel.api.entity.JokeEntity
-import com.jareven.basemodel.api.entity.WeatherEntity
+import com.richinfo.httpmodel.api.entity.JokeEntity
+import com.richinfo.httpmodel.api.entity.WeatherEntity
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

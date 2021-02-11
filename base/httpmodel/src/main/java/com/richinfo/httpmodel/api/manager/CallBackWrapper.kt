@@ -1,4 +1,4 @@
-package com.jareven.basemodel.api.manager
+package com.richinfo.httpmodel.api.manager
 
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable

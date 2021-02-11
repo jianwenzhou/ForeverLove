@@ -1,4 +1,4 @@
-package com.jareven.basemodel.api.manager
+package com.richinfo.httpmodel.api.manager
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

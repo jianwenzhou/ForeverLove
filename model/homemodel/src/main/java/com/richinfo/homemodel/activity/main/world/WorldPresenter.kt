@@ -2,9 +2,9 @@ package com.richinfo.homemodel.activity.main.world
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.jareven.basemodel.api.manager.CallBackWrapper
 import com.jareven.basemodel.mvp.BasePresenter
 import com.richinfo.httpmodel.api.entity.ImageEntity
+import com.richinfo.httpmodel.api.manager.CallBackWrapper
 import io.reactivex.disposables.Disposable
 
 /**

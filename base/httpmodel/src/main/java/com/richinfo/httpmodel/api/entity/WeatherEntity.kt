@@ -1,4 +1,4 @@
-package com.jareven.basemodel.api.entity
+package com.richinfo.httpmodel.api.entity
 
 /**
  * @ClassName WeatherEntity

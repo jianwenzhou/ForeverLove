@@ -1,4 +1,4 @@
-package com.richinfo.homemodel.const
+package com.richinfo.httpmodel.api.const
 
 /**
  * @ClassName NetConst
