@@ -16,6 +16,7 @@ abstract class BaseLazyFragment : BaseFragment() {
      * 懒加载过
      */
     private var isLazyLoaded = false
+
     /**
      * Fragment的View加载完毕的标记
      */

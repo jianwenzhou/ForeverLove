@@ -1,8 +1,8 @@
 package com.richinfo.homemodel.activity.main.live
 
 import android.view.View
-import com.blankj.utilcode.util.LogUtils
 import com.jareven.basemodel.base.BaseLazyFragment
+import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.const.NetConst
 import com.richinfo.httpmodel.api.entity.JokeEntity
@@ -46,7 +46,7 @@ class LiveFragment : BaseLazyFragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : CallBackWrapper<JokeEntity>() {
                 override fun onSuccess(t: JokeEntity) {
-                    LogUtils.e(t)
+                    Lg.e(t.toString())
                 }
 
                 override fun onError(msg: String, code: Int) {

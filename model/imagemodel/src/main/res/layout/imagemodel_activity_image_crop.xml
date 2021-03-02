@@ -10,9 +10,11 @@
         android:id="@+id/imagemodel_bg_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription" />
 
     <com.bm.library.PhotoView
+        android:transitionName="@string/image_transitionName"
         android:id="@+id/imagemodel_photo_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

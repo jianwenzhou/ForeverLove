@@ -1,18 +1,13 @@
 package com.richinfo.homemodel.activity.main.world
 
-import android.graphics.Color
-import android.view.View
-import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import com.blankj.utilcode.util.ScreenUtils
-import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.jareven.basemodel.utils.GlideUtils.loadImage
+import com.jareven.basemodel.utils.GradientDrawableUtils
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
-import me.samlss.broccoli.Broccoli
-import me.samlss.broccoli.BroccoliGradientDrawable
-import me.samlss.broccoli.PlaceholderParameter
 
 
 /**
@@ -24,18 +19,17 @@ import me.samlss.broccoli.PlaceholderParameter
 class HomeAdapter(layoutResId: Int, data: List<Hit>?) :
     BaseQuickAdapter<Hit?, BaseViewHolder?>(layoutResId, data) {
 
-    private val mViewPlaceholderManager: Map<View, Broccoli> = HashMap()
-
     override fun convert(p0: BaseViewHolder, p1: Hit?) {
 
         val view = p0.getView<ImageView>(R.id.word_item_cover_iv)
 
-        setImageSize(p1?.webformatWidth, p1?.webformatHeight, view)
+        setImageSize(p1?.previewWidth, p1?.previewHeight, view)
 
-        Glide.with(mContext)
-            .load(p1?.webformatURL)
-            .placeholder(R.mipmap.basemodel_glide_placeholder)
-            .into(view)
+        val gradientDrawable = GradientDrawableUtils.createRandomDrawable()
+
+        //加载原图
+        loadImage(mContext, p1?.webformatURL, gradientDrawable, view)
+
     }
 
     private fun setImageSize(

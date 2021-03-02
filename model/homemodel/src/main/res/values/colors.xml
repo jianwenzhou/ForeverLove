@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="homemodel_searchBackground">#ffffff</color>
+    <color name="homemodel_searchTextColor">#000000</color>
+    <color name="homemodel_searchTextColorHint">#444444</color>
+
+
+</resources>

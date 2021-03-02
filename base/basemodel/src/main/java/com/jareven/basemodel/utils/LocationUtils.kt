@@ -23,7 +23,7 @@ object LocationUtils {
     @SuppressLint("MissingPermission")
     fun getLocations(context: Context): String {
         //默认未知
-        var strLocation = "未知"
+        var strLocation = "深圳"
         try {
             //获取系统的服务，
             val locationManager =

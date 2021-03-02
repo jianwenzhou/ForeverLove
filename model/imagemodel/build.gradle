@@ -64,8 +64,5 @@ dependencies {
     //Arouter
     kapt "com.alibaba:arouter-compiler:$arouter"
 
-    //吸色器
-    implementation "androidx.palette:palette-ktx:$palette"
-
 
 }

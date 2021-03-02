@@ -1,5 +1,6 @@
 package com.richinfo.httpmodel.api.manager
 
+import com.jareven.thirdlibrary.Lg
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
@@ -43,6 +44,8 @@ abstract class CallBackWrapper<T> : Observer<T> {
 
     abstract fun onSuccess(t: T)
 
-    open fun onError(msg: String, code: Int){}
+    open fun onError(msg: String, code: Int) {
+        Lg.d("code=$code---msg=$msg")
+    }
 
 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.jareven.basemodel.base.BaseActivity
@@ -49,8 +50,12 @@ open class MainActivity : BaseActivity() {
     }
 
     override fun initStatusBar() {
+        setStatusBar(true)
+    }
+
+    private fun setStatusBar(isLightMode: Boolean) {
         //状态栏黑色
-        BarUtils.setStatusBarLightMode(this, true)
+        BarUtils.setStatusBarLightMode(this, isLightMode)
         //状态栏背景透明
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT)
     }
@@ -61,6 +66,20 @@ open class MainActivity : BaseActivity() {
         VMainViewPager.isUserInputEnabled = false
         //底部导航栏和ViewPager2绑定
         VMainBottomBar.setupWithViewPager2(VMainViewPager)
+
+        //viewPager切换监听
+        VMainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if (position == 2) {
+                    //状态栏白色
+                    setStatusBar(false)
+                } else {
+                    //状态栏黑色
+                    setStatusBar(true)
+                }
+            }
+        })
     }
 
     override fun initData() {
@@ -96,11 +115,6 @@ open class MainActivity : BaseActivity() {
             //完全退出APP，杀死进程
             //ActivityCollector.finishAll()
         }
-
-    }
-
-
-    fun setBottomBarVis(isVis: Boolean) {
 
     }
 

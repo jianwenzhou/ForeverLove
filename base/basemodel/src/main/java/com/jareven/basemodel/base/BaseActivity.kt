@@ -5,8 +5,8 @@ import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.LogUtils
 import com.jareven.basemodel.callback.PermissionCallback
+import com.jareven.thirdlibrary.Lg
 import com.yanzhenjie.permission.AndPermission
 
 /**
@@ -24,11 +24,11 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun initActivity() {
         //打印当前Activity名称
-        LogUtils.d("BaseActivity:" + javaClass.simpleName)
+        Lg.d("BaseActivity:" + javaClass.simpleName)
         //Activity管理器
         ActivityCollector.addActivity(this)
         //传递参数注入
-        ARouter.getInstance().inject(this);
+        ARouter.getInstance().inject(this)
 
         //子类初始化
         initView()

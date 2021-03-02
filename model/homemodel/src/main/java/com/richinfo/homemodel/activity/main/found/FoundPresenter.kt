@@ -1,10 +1,8 @@
 package com.richinfo.homemodel.activity.main.found
 
-import androidx.annotation.NonNull
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelStoreOwner
-import com.blankj.utilcode.util.LogUtils
 import com.jareven.basemodel.mvp.BasePresenter
+import com.jareven.thirdlibrary.Lg
 
 /**
  * @ClassName FoundPresenter
@@ -14,24 +12,14 @@ import com.jareven.basemodel.mvp.BasePresenter
  * @Version 1.0
  * 简介：发现页面的P层
  */
-class FoundPresenter(@NonNull owner: ViewModelStoreOwner) : BasePresenter() {
-
-
-
-    /**
-     * 获取天气信息
-     */
-    fun getSimpleWeather(city: String) {
-
-    }
-
+class FoundPresenter : BasePresenter() {
 
     override fun onCreate(owner: LifecycleOwner) {
-        LogUtils.d("FoundPresenter onCreate")
+        Lg.d("FoundPresenter onCreate")
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        LogUtils.d("FoundPresenter onDestroy")
+        Lg.d("FoundPresenter onDestroy")
     }
 
 }

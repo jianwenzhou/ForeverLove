@@ -26,7 +26,7 @@ class FoundFragment : BaseLazyFragment() {
 
 
     override fun initData() {
-        presenter = FoundPresenter(this)
+        presenter = FoundPresenter()
         lifecycle.addObserver(presenter)
 
     }

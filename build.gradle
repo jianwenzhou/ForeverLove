@@ -18,6 +18,8 @@ buildscript {
         viewpager2="1.1.0-alpha01"
         lifecycle="2.2.0"
         work_runtime="1.0.1"
+        coordinatorlayout="1.1.0"
+        material="1.0.0"
 
         /*第三方依赖*/
         utilcodex = "1.28.4"
@@ -35,7 +37,7 @@ buildscript {
         swiperefreshlayout="1.1.0"
         broccoli="1.0.0"
         photoview="1.4.1"
-        palette="1.0.0"
+        materialsearchview="1.4.0"
     }
 
 

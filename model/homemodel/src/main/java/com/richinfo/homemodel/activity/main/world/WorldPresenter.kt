@@ -33,10 +33,10 @@ class WorldPresenter(owner: Fragment, private var view: WorldView<ImageEntity>) 
      * 加载数据
      * isPull true:下拉刷新或者首次加载
      */
-    fun loadData(isPull: Boolean) {
+    fun loadData(isPull: Boolean, key: String) {
         if (isPull) reset()
 
-        viewModel.getImageList(page, pageCount)
+        viewModel.getImageList(page, pageCount, key)
             ?.subscribe(object : CallBackWrapper<ImageEntity>() {
 
                 override fun onBegin(d: Disposable) {

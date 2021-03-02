@@ -38,6 +38,8 @@ dependencies {
     api "androidx.appcompat:appcompat:$appcompat"
     api "androidx.core:core-ktx:$core_ktx"
     api "androidx.constraintlayout:constraintlayout:$constraintlayout"
+    api "androidx.coordinatorlayout:coordinatorlayout:$coordinatorlayout"
+    api "com.google.android.material:material:$material"
 
     /*jetpack*/
     /*view model*/
@@ -107,5 +109,9 @@ dependencies {
 
     //photoview
     api "com.bm.photoview:library:$photoview"
+
+    //searchView
+    api "com.miguelcatalan:materialsearchview:$materialsearchview"
+
 
 }

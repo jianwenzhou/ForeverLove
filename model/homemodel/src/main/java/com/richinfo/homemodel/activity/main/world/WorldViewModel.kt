@@ -24,10 +24,10 @@ class WorldViewModel : ViewModel() {
     /**
      * 下拉刷新或者首次刷新 为true
      */
-    fun getImageList(page: Int, per_page: Int): Observable<ImageEntity>? {
+    fun getImageList(page: Int, per_page: Int, key: String): Observable<ImageEntity>? {
 
         return ApiFactory.getImageData()
-            .getImageList(NetConst.PixabayImageKey, page, per_page, orientation, lang, q)
+            .getImageList(NetConst.PixabayImageKey, page, per_page, orientation, lang, key)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
