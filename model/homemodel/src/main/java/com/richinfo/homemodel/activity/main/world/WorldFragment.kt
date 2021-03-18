@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.CacheDiskUtils
 import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.base.BaseLazyFragment
+import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
 import com.jareven.basemodel.utils.FToastUtils
 import com.richinfo.homemodel.R
@@ -100,9 +101,13 @@ class WorldFragment : BaseLazyFragment(), CommonView<ImageEntity> {
                 CacheDiskUtils.getInstance().put(item.largeImageURL, imView.drawable)
 
                 val bundle = Bundle()
-                bundle.putString("largeImageURL", item.largeImageURL)
+                bundle.putString(BundleConst.HOMEMODEL_LARGE_IMAGE_URL_KEY, item.largeImageURL)
 
-                routerJump(RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY, "bundle", bundle)
+                routerJump(
+                    RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY,
+                    BundleConst.BUNDLE_KEY,
+                    bundle
+                )
 
             }
     }

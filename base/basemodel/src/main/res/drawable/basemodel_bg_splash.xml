@@ -6,7 +6,6 @@
     <item android:bottom="@dimen/dp_32">
         <bitmap
             android:gravity="bottom|center_horizontal"
-            android:src="@mipmap/homemodel_splash_icon">
-        </bitmap>
+            android:src="@mipmap/basemodel_splash_icon" />
     </item>
 </layer-list>

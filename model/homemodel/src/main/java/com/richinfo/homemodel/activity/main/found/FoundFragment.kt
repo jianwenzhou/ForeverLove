@@ -1,5 +1,6 @@
 package com.richinfo.homemodel.activity.main.found
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.base.BaseLazyFragment
+import com.jareven.basemodel.cons.BundleConst
+import com.jareven.basemodel.cons.RouterPathConst
 import com.jareven.basemodel.utils.FToastUtils
 import com.richinfo.homemodel.R
 import com.richinfo.homemodel.activity.main.world.CommonView
@@ -60,8 +63,16 @@ class FoundFragment : BaseLazyFragment(), CommonView<AliRecipeEntity> {
         adapter.setOnLoadMoreListener({ loadData(false) }, word_fragment_rv)
         base_swipe_refresh_view?.setOnRefreshListener { loadData(true) }
         adapter.onItemClickListener =
-            BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, v, i ->
+            BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, _, i ->
+                val item = baseQuickAdapter.getItem(i) as CaiPuDatas
 
+                val bundle = Bundle()
+                bundle.putParcelable(BundleConst.HOMEMODEL_CAIPU_KEY, item)
+                routerJump(
+                    RouterPathConst.ROUTER_FOUND_DETAILS_ACTIVITY,
+                    BundleConst.BUNDLE_KEY,
+                    bundle
+                )
             }
     }
 

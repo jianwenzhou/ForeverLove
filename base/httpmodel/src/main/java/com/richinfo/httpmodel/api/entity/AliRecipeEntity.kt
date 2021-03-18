@@ -1,5 +1,8 @@
 package com.richinfo.httpmodel.api.entity
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  * @ClassName AliRecipeEntity
  * @Author zjw
@@ -130,6 +133,7 @@ data class ShowapiResBody(
     }
 }
 
+@Parcelize
 data class CaiPuDatas(
     val cpName: String,
     val ct: String,
@@ -144,29 +148,31 @@ data class CaiPuDatas(
     val type_v3: String,
     val yl: List<Yl>
 
-) {
+) : Parcelable {
     override fun toString(): String {
         return "Datas(cpName='$cpName', ct='$ct', des='$des', largeImg='$largeImg', smallImg='$smallImg', steps=$steps, tip='$tip', type='$type', type_v1='$type_v1', type_v2='$type_v2', type_v3='$type_v3', yl=$yl)"
     }
 }
 
+@Parcelize
 data class Step(
     val content: String,
     val imgUrl: String,
     val old_imgUrl: String,
     val orderNum: Int
 
-) {
+) : Parcelable {
     override fun toString(): String {
         return "Step(content='$content', imgUrl='$imgUrl', old_imgUrl='$old_imgUrl', orderNum=$orderNum)"
     }
 }
 
+@Parcelize
 data class Yl(
     val ylName: String,
     val ylUnit: String
 
-) {
+) : Parcelable {
     override fun toString(): String {
         return "Yl(ylName='$ylName', ylUnit='$ylUnit')"
     }

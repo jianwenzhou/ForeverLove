@@ -1,14 +1,5 @@
 <resources>
 
-    <!--闪屏页面秒开 主题-->
-    <style name="homemodel_SplashTheme" parent="basemodel_AppTheme">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">false</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@drawable/homemodel_bg_splash</item>
-    </style>
-
     <!--搜索按钮样式-->
     <style name="homemodel_MaterialSearchViewStyle">
         <!-- Background for the search bar -->

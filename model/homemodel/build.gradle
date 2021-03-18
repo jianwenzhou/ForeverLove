@@ -62,6 +62,7 @@ dependencies {
     implementation project(path: ':base:httpmodel')
     /*UI组件*/
     implementation project(path: ':base:uimodel')
+
     //Arouter
     kapt "com.alibaba:arouter-compiler:$arouter"
 

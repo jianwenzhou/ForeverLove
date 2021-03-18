@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.*
 import com.bm.library.PhotoView
 import com.jareven.basemodel.base.BaseActivity
+import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
 import com.jareven.basemodel.utils.BlurUtils.doBlur
 import com.jareven.basemodel.utils.GlideUtils.loadImage
@@ -46,7 +47,7 @@ class ImageCropActivity : BaseActivity() {
 
     private fun setData() {
         val largeImageURL =
-            bundle!!.getString("largeImageURL", defaultUrl)
+            bundle!!.getString(BundleConst.HOMEMODEL_LARGE_IMAGE_URL_KEY, defaultUrl)
         //读取缓存中的drawable
         val drawable = CacheDiskUtils.getInstance().getDrawable(largeImageURL)
         val bitmap = ConvertUtils.drawable2Bitmap(drawable)

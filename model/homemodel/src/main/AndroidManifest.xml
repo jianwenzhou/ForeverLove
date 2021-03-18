@@ -28,7 +28,7 @@
         <activity
             android:name=".activity.splash.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/homemodel_SplashTheme" />
+            android:theme="@style/app_SplashTheme" />
 
         <!-- 首页 -->
         <activity
