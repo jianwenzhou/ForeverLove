@@ -27,7 +27,7 @@ class HomeFragment : BaseLazyFragment() {
 
 
     override fun initData() {
-        Glide.with(this).load(R.mipmap.test).into(homemodel_imageview)
+        Glide.with(this).load(R.mipmap.app_default_advert_img).into(homemodel_imageview)
     }
 
 

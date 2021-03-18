@@ -1,5 +1,6 @@
 package com.richinfo.httpmodel.api.manager
 
+import com.richinfo.httpmodel.api.controller.AliRecipeController
 import com.richinfo.httpmodel.api.controller.JuHeDataController
 import com.richinfo.httpmodel.api.controller.PixabayDataController
 
@@ -26,6 +27,15 @@ object ApiFactory {
     fun getImageData(): PixabayDataController {
         return pixabayData ?: synchronized(ApiFactory::class) {
             pixabayData ?: RetrofitManager.getInstence().create(PixabayDataController::class.java)
+        }
+    }
+
+
+    private var aliRecipeData: AliRecipeController? = null
+
+    fun getRecipeData(): AliRecipeController {
+        return aliRecipeData ?: synchronized(ApiFactory::class) {
+            aliRecipeData ?: RetrofitManager.getInstence().create(AliRecipeController::class.java)
         }
     }
 

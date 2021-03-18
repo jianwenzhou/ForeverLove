@@ -1,3 +1,4 @@
+include ':base:uimodel'
 include ':base:httpmodel'
 include ':app'
 

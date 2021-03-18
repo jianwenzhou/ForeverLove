@@ -27,11 +27,11 @@ import kotlinx.android.synthetic.main.homemodel_fragment_main_world.*
  * @Version 1.0
  * 简介：世界Fragment
  */
-class WorldFragment : BaseLazyFragment(), WorldView<ImageEntity> {
+class WorldFragment : BaseLazyFragment(), CommonView<ImageEntity> {
 
     private lateinit var presenter: WorldPresenter
 
-    private lateinit var adapter: HomeAdapter
+    private lateinit var adapter: WorldAdapter
 
 
     private var searchKey: String = "风景"
@@ -77,7 +77,7 @@ class WorldFragment : BaseLazyFragment(), WorldView<ImageEntity> {
      */
     private fun initRecyclerView() {
         val mutableList = ArrayList<Hit>()
-        adapter = HomeAdapter(R.layout.homemodel_fragment_word_item, mutableList)
+        adapter = WorldAdapter(R.layout.homemodel_fragment_word_item, mutableList)
         //垂直方向的2列
         val layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

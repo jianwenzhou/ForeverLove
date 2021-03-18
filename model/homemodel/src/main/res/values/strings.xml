@@ -8,5 +8,6 @@
     <string name="homemodel_not_more_data">—— 没有更多数据了 ——</string>
     <string name="homemodel_empty_data">页面暂无数据</string>
     <string name="homemodel_error_data">页面数据异常</string>
+    <string name="homemodel_caipu_cover_des">菜谱图片</string>
 
 </resources>

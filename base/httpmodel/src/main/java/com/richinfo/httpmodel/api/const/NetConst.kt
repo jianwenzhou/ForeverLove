@@ -28,4 +28,11 @@ object NetConst {
      */
     val PixabayImageKey: String = "18660996-969ed0a84c7e6b12670a9a995"
 
+    /**
+     * 阿里云食谱
+     * header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+     */
+    val AliRecipeKey: String = "APPCODE 93cae5f494ec45148a8845573eadd7bb"
+
+
 }

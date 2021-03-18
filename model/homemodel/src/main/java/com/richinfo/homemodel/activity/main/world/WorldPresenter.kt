@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
  * @Date 2020/12/13 15:51
  * 简介：
  */
-class WorldPresenter(owner: Fragment, private var view: WorldView<ImageEntity>) : BasePresenter() {
+class WorldPresenter(owner: Fragment, private var view: CommonView<ImageEntity>) : BasePresenter() {
 
     private var viewModel: WorldViewModel = ViewModelProvider(owner).get(WorldViewModel::class.java)
 
