@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
 
     <TextView
@@ -10,8 +10,8 @@
         android:layout_centerInParent="true"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="@string/homemodel_not_more_data"
+        android:text="@string/uimodel_empty_data"
         android:textColor="#aabdd0"
-        android:textSize="@dimen/sp_12" />
+        android:textSize="@dimen/sp_18" />
 
 </RelativeLayout>

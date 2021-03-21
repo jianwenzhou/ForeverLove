@@ -6,10 +6,9 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/basemodel_toolbar_container"
+        android:id="@+id/uimodel_toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,16 +18,16 @@
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/basemodel_swipe_refresh_view"
+        android:id="@+id/uimodel_swipe_refresh_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/basemodel_toolbar_container">
+        app:layout_constraintTop_toBottomOf="@+id/uimodel_toolbar_container">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/basemodel_recycler_view"
+            android:id="@+id/uimodel_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="ifContentScrolls"

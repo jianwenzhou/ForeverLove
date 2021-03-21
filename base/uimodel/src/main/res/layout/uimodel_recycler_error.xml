@@ -10,7 +10,7 @@
         android:layout_centerInParent="true"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="@string/homemodel_empty_data"
+        android:text="@string/uimodel_error_data"
         android:textColor="#aabdd0"
         android:textSize="@dimen/sp_18" />
 

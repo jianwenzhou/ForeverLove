@@ -1,14 +1,11 @@
 package com.richinfo.homemodel.activity.main.found
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.jareven.basemodel.base.BaseRecyclerViewFragment
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
 import com.jareven.basemodel.utils.FToastUtils
@@ -16,6 +13,8 @@ import com.richinfo.homemodel.R
 import com.richinfo.homemodel.activity.main.world.CommonView
 import com.richinfo.httpmodel.api.entity.AliRecipeEntity
 import com.richinfo.httpmodel.api.entity.CaiPuDatas
+import com.richinfo.uimodel.dialog.DialogManager
+import com.richinfo.uimodel.fragment.BaseRecyclerViewFragment
 import com.richinfo.uimodel.recyclerview.SpacesItemDecoration
 import kotlin.math.roundToInt
 
@@ -33,6 +32,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
     private lateinit var adapter: FoundAdapter
 
+    private var firstUpdate = true
 
     override fun initView(view: View?) {
         super.initView(view)
@@ -64,7 +64,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
         recyclerView.addItemDecoration(SpacesItemDecoration(ConvertUtils.dp2px(40f)))
 
         adapter.setOnLoadMoreListener({ loadData(false) }, recyclerView)
-        refreshLayout.setOnRefreshListener { loadData(true) }
+
         adapter.onItemClickListener =
             BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, v, i ->
                 val item = baseQuickAdapter.getItem(i) as CaiPuDatas
@@ -93,6 +93,9 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
             }
     }
 
+    override fun onRefresh() {
+        loadData(true)
+    }
 
     override fun lazyInit() {
         presenter = FoundPresenter(this, this)
@@ -119,30 +122,34 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
     override fun setEmptyOrErrorView(isEmpty: Boolean) {
         showLoading(false)
         if (isEmpty) {
-            adapter.setEmptyView(
-                R.layout.homemodel_recycler_empty,
-                recyclerView.parent as ViewGroup
-            )
+            adapter.emptyView = createEmptyView()
         } else {
-            adapter.setEmptyView(
-                R.layout.homemodel_recycler_error,
-                recyclerView.parent as ViewGroup
-            )
+            adapter.emptyView = createErrorView()
         }
     }
 
 
     override fun showLoading(isPull: Boolean) {
-        refreshLayout.isRefreshing = isPull
+        if (firstUpdate) {
+            activity?.let { DialogManager.showLoadingDialog(it) }
+        } else {
+            isRefreshing(isPull)
+        }
     }
 
     override fun showContent() {
-        refreshLayout.isRefreshing = false
+        if (firstUpdate) {
+            DialogManager.dismissLoadingDialog()
+            firstUpdate = false
+        } else {
+            isRefreshing(false)
+        }
         removeFooterView()
     }
 
     override fun showMessage(msg: String) {
         FToastUtils.showShort(msg)
+        firstUpdate = false
     }
 
     override fun loadMoreComplete() {
@@ -157,10 +164,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
         if (footerLayoutCount > 0) {
             return
         }
-        val footerView: View = LayoutInflater.from(context).inflate(
-            R.layout.homemodel_recycler_footer, recyclerView.parent as ViewGroup, false
-        )
-        adapter.addFooterView(footerView)
+        adapter.addFooterView(createFooterView())
     }
 
     /**

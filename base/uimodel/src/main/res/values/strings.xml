@@ -1,0 +1,5 @@
+<resources>
+    <string name="uimodel_not_more_data">—— 没有更多数据了 ——</string>
+    <string name="uimodel_empty_data">页面暂无数据</string>
+    <string name="uimodel_error_data">页面数据异常</string>
+</resources>

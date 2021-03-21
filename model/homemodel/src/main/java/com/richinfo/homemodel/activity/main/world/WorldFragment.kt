@@ -1,14 +1,11 @@
 package com.richinfo.homemodel.activity.main.world
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.jareven.basemodel.base.BaseRecyclerViewFragment
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
 import com.jareven.basemodel.utils.FToastUtils
@@ -16,6 +13,7 @@ import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
 import com.richinfo.httpmodel.api.entity.ImageEntity
 import com.richinfo.uimodel.dialog.DialogManager
+import com.richinfo.uimodel.fragment.BaseRecyclerViewFragment
 import kotlinx.android.synthetic.main.homemodel_fragment_main_world.*
 
 
@@ -93,7 +91,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
         recyclerView.isNestedScrollingEnabled = false
 
         adapter.setOnLoadMoreListener({ loadData(false) }, recyclerView)
-        refreshLayout.setOnRefreshListener { loadData(true) }
+
         adapter.onItemClickListener =
             BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, _, i ->
 
@@ -113,6 +111,10 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
             }
     }
 
+
+    override fun onRefresh() {
+        loadData(true)
+    }
 
     override fun lazyInit() {
         presenter = WorldPresenter(this, this)
@@ -139,15 +141,9 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
     override fun setEmptyOrErrorView(isEmpty: Boolean) {
         showLoading(false)
         if (isEmpty) {
-            adapter.setEmptyView(
-                R.layout.homemodel_recycler_empty,
-                recyclerView.parent as ViewGroup
-            )
+            adapter.emptyView = createEmptyView()
         } else {
-            adapter.setEmptyView(
-                R.layout.homemodel_recycler_error,
-                recyclerView.parent as ViewGroup
-            )
+            adapter.emptyView = createErrorView()
         }
     }
 
@@ -156,7 +152,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
         if (firstUpdate) {
             activity?.let { DialogManager.showLoadingDialog(it) }
         } else {
-            refreshLayout.isRefreshing = isPull
+            isRefreshing(isPull)
         }
     }
 
@@ -165,7 +161,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
             DialogManager.dismissLoadingDialog()
             firstUpdate = false
         } else {
-            refreshLayout.isRefreshing = false
+            isRefreshing(false)
         }
         removeFooterView()
     }
@@ -187,10 +183,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
         if (footerLayoutCount > 0) {
             return
         }
-        val footerView: View = LayoutInflater.from(context).inflate(
-            R.layout.homemodel_recycler_footer, recyclerView.parent as ViewGroup, false
-        )
-        adapter.addFooterView(footerView)
+        adapter.addFooterView(createFooterView())
     }
 
     /**

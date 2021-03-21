@@ -29,5 +29,7 @@ dependencies {
 
     /*第三方依赖*/
     implementation project(path: ':base:impmodel')
+    /*basemodel*/
+    implementation project(path: ':base:basemodel')
 
 }
