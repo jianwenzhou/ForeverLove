@@ -63,6 +63,7 @@ open class MainActivity : BaseActivity() {
     override fun initView() {
         //ViewPager2设置
         VMainViewPager.adapter = MainViewPager(this, createFragments())
+
         VMainViewPager.isUserInputEnabled = false
         //底部导航栏和ViewPager2绑定
         VMainBottomBar.setupWithViewPager2(VMainViewPager)

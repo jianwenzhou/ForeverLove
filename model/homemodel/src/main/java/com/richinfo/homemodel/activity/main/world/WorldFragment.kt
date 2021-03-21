@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.blankj.utilcode.util.CacheDiskUtils
 import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.jareven.basemodel.base.BaseLazyFragment
+import com.jareven.basemodel.base.BaseRecyclerViewFragment
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
 import com.jareven.basemodel.utils.FToastUtils
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
 import com.richinfo.httpmodel.api.entity.ImageEntity
+import com.richinfo.uimodel.dialog.DialogManager
 import kotlinx.android.synthetic.main.homemodel_fragment_main_world.*
 
 
@@ -28,23 +27,26 @@ import kotlinx.android.synthetic.main.homemodel_fragment_main_world.*
  * @Version 1.0
  * 简介：世界Fragment
  */
-class WorldFragment : BaseLazyFragment(), CommonView<ImageEntity> {
+class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
     private lateinit var presenter: WorldPresenter
 
     private lateinit var adapter: WorldAdapter
 
+    private var firstUpdate = true
 
     private var searchKey: String = "风景"
 
-    override fun getLayoutID(): Int {
-        return R.layout.homemodel_fragment_main_world
-    }
 
     override fun initView(view: View?) {
-        initStatusBar()
+        super.initView(view)
         initRecyclerView()
+        initStatusBar()
         initSearchView()
+    }
+
+    override fun createToolBar(): View? {
+        return View.inflate(context, R.layout.homemodel_fragment_main_world, null)
     }
 
     private fun initStatusBar() {
@@ -85,23 +87,22 @@ class WorldFragment : BaseLazyFragment(), CommonView<ImageEntity> {
         //防止item 交换位置
         layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
 
-        word_fragment_rv?.layoutManager = layoutManager
-        word_fragment_rv?.adapter = adapter
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
         //解决滑动冲突
-        word_fragment_rv?.isNestedScrollingEnabled = false
+        recyclerView.isNestedScrollingEnabled = false
 
-        adapter.setOnLoadMoreListener({ loadData(false) }, word_fragment_rv)
-        base_swipe_refresh_view?.setOnRefreshListener { loadData(true) }
+        adapter.setOnLoadMoreListener({ loadData(false) }, recyclerView)
+        refreshLayout.setOnRefreshListener { loadData(true) }
         adapter.onItemClickListener =
-            BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, v, i ->
-                //item中获取imageView
-                val imView = v.findViewById<ImageView>(R.id.word_item_cover_iv)
-                val item = baseQuickAdapter.getItem(i) as Hit
+            BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, _, i ->
 
-                CacheDiskUtils.getInstance().put(item.largeImageURL, imView.drawable)
+                val data =
+                    baseQuickAdapter.data.filterIsInstance<Hit>() as ArrayList<Hit>
 
                 val bundle = Bundle()
-                bundle.putString(BundleConst.HOMEMODEL_LARGE_IMAGE_URL_KEY, item.largeImageURL)
+                bundle.putParcelableArrayList(BundleConst.HOMEMODEL_LARGE_IMAGE_LIST_KEY, data)
+                bundle.putInt(BundleConst.HOMEMODEL_LARGE_POSITION_KEY, i)
 
                 routerJump(
                     RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY,
@@ -113,7 +114,7 @@ class WorldFragment : BaseLazyFragment(), CommonView<ImageEntity> {
     }
 
 
-    override fun onLazyLoadOnce() {
+    override fun lazyInit() {
         presenter = WorldPresenter(this, this)
         loadData(true)
     }
@@ -140,28 +141,38 @@ class WorldFragment : BaseLazyFragment(), CommonView<ImageEntity> {
         if (isEmpty) {
             adapter.setEmptyView(
                 R.layout.homemodel_recycler_empty,
-                word_fragment_rv?.parent as ViewGroup
+                recyclerView.parent as ViewGroup
             )
         } else {
             adapter.setEmptyView(
                 R.layout.homemodel_recycler_error,
-                word_fragment_rv?.parent as ViewGroup
+                recyclerView.parent as ViewGroup
             )
         }
     }
 
 
     override fun showLoading(isPull: Boolean) {
-        base_swipe_refresh_view?.isRefreshing = isPull
+        if (firstUpdate) {
+            activity?.let { DialogManager.showLoadingDialog(it) }
+        } else {
+            refreshLayout.isRefreshing = isPull
+        }
     }
 
     override fun showContent() {
-        base_swipe_refresh_view?.isRefreshing = false
+        if (firstUpdate) {
+            DialogManager.dismissLoadingDialog()
+            firstUpdate = false
+        } else {
+            refreshLayout.isRefreshing = false
+        }
         removeFooterView()
     }
 
     override fun showMessage(msg: String) {
         FToastUtils.showShort(msg)
+        firstUpdate = false
     }
 
     override fun loadMoreComplete() {
@@ -177,7 +188,7 @@ class WorldFragment : BaseLazyFragment(), CommonView<ImageEntity> {
             return
         }
         val footerView: View = LayoutInflater.from(context).inflate(
-            R.layout.homemodel_recycler_footer, word_fragment_rv?.parent as ViewGroup, false
+            R.layout.homemodel_recycler_footer, recyclerView.parent as ViewGroup, false
         )
         adapter.addFooterView(footerView)
     }

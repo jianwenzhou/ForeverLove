@@ -37,7 +37,7 @@ buildscript {
         swiperefreshlayout="1.1.0"
         broccoli="1.0.0"
         photoview="1.4.1"
-        materialsearchview="1.4.0"
+        lottieVersion="3.6.1"
     }
 
 

@@ -107,11 +107,11 @@ dependencies {
     //占位动画
     api "me.samlss:broccoli:$broccoli"
 
-    //photoview
+    //photoView
     api "com.bm.photoview:library:$photoview"
 
-    //searchView
-    api "com.miguelcatalan:materialsearchview:$materialsearchview"
+    //Lottie
+    api "com.airbnb.android:lottie:$lottieVersion"
 
 
 }

@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.jareven.basemodel.base.BaseLazyFragment
+import com.jareven.basemodel.base.BaseRecyclerViewFragment
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
 import com.jareven.basemodel.utils.FToastUtils
@@ -16,7 +17,7 @@ import com.richinfo.homemodel.activity.main.world.CommonView
 import com.richinfo.httpmodel.api.entity.AliRecipeEntity
 import com.richinfo.httpmodel.api.entity.CaiPuDatas
 import com.richinfo.uimodel.recyclerview.SpacesItemDecoration
-import kotlinx.android.synthetic.main.homemodel_fragment_main_world.*
+import kotlin.math.roundToInt
 
 /**
  * @ClassName FoundFragment
@@ -26,19 +27,21 @@ import kotlinx.android.synthetic.main.homemodel_fragment_main_world.*
  * @Version 1.0
  * 简介：发现Fragment
  */
-class FoundFragment : BaseLazyFragment(), CommonView<AliRecipeEntity> {
+class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
     //延迟初始化
     private lateinit var presenter: FoundPresenter
 
     private lateinit var adapter: FoundAdapter
 
-    override fun getLayoutID(): Int {
-        return R.layout.homemodel_fragment_main_found
-    }
 
     override fun initView(view: View?) {
-        initStatusBar()
+        super.initView(view)
         initRecyclerView()
+        initStatusBar()
+    }
+
+    override fun createToolBar(): View? {
+        return View.inflate(context, R.layout.homemodel_fragment_main_found, null)
     }
 
     private fun initStatusBar() {
@@ -55,29 +58,43 @@ class FoundFragment : BaseLazyFragment(), CommonView<AliRecipeEntity> {
         val layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        word_fragment_rv?.layoutManager = layoutManager
-        word_fragment_rv?.adapter = adapter
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
 
-        word_fragment_rv.addItemDecoration(SpacesItemDecoration(ConvertUtils.dp2px(40f)))
+        recyclerView.addItemDecoration(SpacesItemDecoration(ConvertUtils.dp2px(40f)))
 
-        adapter.setOnLoadMoreListener({ loadData(false) }, word_fragment_rv)
-        base_swipe_refresh_view?.setOnRefreshListener { loadData(true) }
+        adapter.setOnLoadMoreListener({ loadData(false) }, recyclerView)
+        refreshLayout.setOnRefreshListener { loadData(true) }
         adapter.onItemClickListener =
-            BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, _, i ->
+            BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, v, i ->
                 val item = baseQuickAdapter.getItem(i) as CaiPuDatas
+
+                val activityOptionsCompat: ActivityOptionsCompat =
+                    ActivityOptionsCompat.makeScaleUpAnimation(
+                        v,
+                        (v.x.roundToInt() + v.width) / 2,
+                        (v.y.roundToInt() + v.height) / 2,
+                        v.width,
+                        v.height
+                    )
 
                 val bundle = Bundle()
                 bundle.putParcelable(BundleConst.HOMEMODEL_CAIPU_KEY, item)
-                routerJump(
-                    RouterPathConst.ROUTER_FOUND_DETAILS_ACTIVITY,
-                    BundleConst.BUNDLE_KEY,
-                    bundle
-                )
+
+                activity?.let {
+                    routerJump(
+                        RouterPathConst.ROUTER_FOUND_DETAILS_ACTIVITY,
+                        BundleConst.BUNDLE_KEY,
+                        bundle,
+                        activityOptionsCompat,
+                        it
+                    )
+                }
             }
     }
 
 
-    override fun onLazyLoadOnce() {
+    override fun lazyInit() {
         presenter = FoundPresenter(this, this)
         loadData(true)
     }
@@ -104,23 +121,23 @@ class FoundFragment : BaseLazyFragment(), CommonView<AliRecipeEntity> {
         if (isEmpty) {
             adapter.setEmptyView(
                 R.layout.homemodel_recycler_empty,
-                word_fragment_rv?.parent as ViewGroup
+                recyclerView.parent as ViewGroup
             )
         } else {
             adapter.setEmptyView(
                 R.layout.homemodel_recycler_error,
-                word_fragment_rv?.parent as ViewGroup
+                recyclerView.parent as ViewGroup
             )
         }
     }
 
 
     override fun showLoading(isPull: Boolean) {
-        base_swipe_refresh_view?.isRefreshing = isPull
+        refreshLayout.isRefreshing = isPull
     }
 
     override fun showContent() {
-        base_swipe_refresh_view?.isRefreshing = false
+        refreshLayout.isRefreshing = false
         removeFooterView()
     }
 
@@ -141,7 +158,7 @@ class FoundFragment : BaseLazyFragment(), CommonView<AliRecipeEntity> {
             return
         }
         val footerView: View = LayoutInflater.from(context).inflate(
-            R.layout.homemodel_recycler_footer, word_fragment_rv?.parent as ViewGroup, false
+            R.layout.homemodel_recycler_footer, recyclerView.parent as ViewGroup, false
         )
         adapter.addFooterView(footerView)
     }

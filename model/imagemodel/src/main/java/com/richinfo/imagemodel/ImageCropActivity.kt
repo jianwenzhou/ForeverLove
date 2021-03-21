@@ -2,22 +2,30 @@ package com.richinfo.imagemodel
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.*
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ConvertUtils
 import com.bm.library.PhotoView
+import com.bumptech.glide.request.target.DrawableImageViewTarget
+import com.bumptech.glide.request.transition.Transition
 import com.jareven.basemodel.base.BaseActivity
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
-import com.jareven.basemodel.utils.BlurUtils.doBlur
+import com.jareven.basemodel.utils.BlurUtils.setBackgroue
 import com.jareven.basemodel.utils.GlideUtils.loadImage
+import com.richinfo.httpmodel.api.entity.Hit
+import com.richinfo.uimodel.dialog.DialogManager.dismissLoadingDialog
+import com.richinfo.uimodel.dialog.DialogManager.showLoadingDialog
 
 @Route(path = RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY)
 class ImageCropActivity : BaseActivity() {
+
     @JvmField
     @Autowired
     var bundle: Bundle? = null
@@ -46,39 +54,56 @@ class ImageCropActivity : BaseActivity() {
     }
 
     private fun setData() {
-        val largeImageURL =
-            bundle!!.getString(BundleConst.HOMEMODEL_LARGE_IMAGE_URL_KEY, defaultUrl)
-        //读取缓存中的drawable
-        val drawable = CacheDiskUtils.getInstance().getDrawable(largeImageURL)
-        val bitmap = ConvertUtils.drawable2Bitmap(drawable)
+        bundle?.let {
 
-        //模糊原图并设置背景
-        doBlur(bitmap)
+            val data = it.getParcelableArrayList<Hit>(BundleConst.HOMEMODEL_LARGE_IMAGE_LIST_KEY)
 
-        //缩放，宽度铺满，高度自适应
-        val scale = ImageUtils.scale(
-            bitmap, ScreenUtils.getScreenWidth(),
-            ScreenUtils.getScreenWidth() / bitmap.width * bitmap.height
-            , true
-        )
+            val position: Int = it.getInt(BundleConst.HOMEMODEL_LARGE_POSITION_KEY, 0)
 
-        //占位图
-        val placeholder = ConvertUtils.bitmap2Drawable(scale)
+            val largeImageURL = data?.get(position)?.largeImageURL
 
-        //加载原图
-        loadImage(this, largeImageURL, placeholder, photoView)
+            loadLargeImage(largeImageURL)
+
+        }
     }
 
     /**
-     * 放大并模糊
+     * 加载图片
+     */
+    private fun loadLargeImage(largeImageURL: String?) {
+        loadImage(this, largeImageURL, null, object : DrawableImageViewTarget(photoView) {
+            override fun onLoadStarted(placeholder: Drawable?) {
+                super.onLoadStarted(placeholder)
+                showLoadingDialog(this@ImageCropActivity)
+            }
+
+            override fun onResourceReady(
+                resource: Drawable,
+                transition: Transition<in Drawable>?
+            ) {
+                super.onResourceReady(resource, transition)
+                dismissLoadingDialog()
+                setBackground(ConvertUtils.drawable2Bitmap(resource))
+            }
+
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                super.onLoadFailed(errorDrawable)
+                dismissLoadingDialog()
+                showMessage(getString(R.string.imagemodel_image_load_error_tip))
+            }
+        })
+    }
+
+    /**
+     * 设置高斯模糊的背景
      *
      * @param bitmap 原图
      */
-    private fun doBlur(bitmap: Bitmap) {
+    private fun setBackground(bitmap: Bitmap) {
         //放大并模糊
-        val bg = doBlur(bitmap, 20, 5)
+        val bg = setBackgroue(bitmap, 20, 5)
         //设置给背景
-        bgView!!.setImageBitmap(bg)
+        bgView?.setImageBitmap(bg)
     }
 
     /**
@@ -135,8 +160,4 @@ class ImageCropActivity : BaseActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     }
 
-    companion object {
-        private const val defaultUrl =
-            "https://pixabay.com/get/57e8d34b4e57a514f1dc846096293f78133fd7ec554c704f742f72d4974acc58_640.jpg"
-    }
 }

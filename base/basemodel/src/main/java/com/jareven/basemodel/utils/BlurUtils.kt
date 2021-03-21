@@ -20,7 +20,7 @@ object BlurUtils {
      * @param canReuseInBitmap 是否重用
      * @return 位图
      */
-    fun doBlur(sentBitmap: Bitmap, radius: Int, canReuseInBitmap: Boolean): Bitmap? {
+    fun setBackgroue(sentBitmap: Bitmap, radius: Int, canReuseInBitmap: Boolean): Bitmap? {
         val bitmap: Bitmap
         bitmap = if (canReuseInBitmap) {
             sentBitmap
@@ -238,7 +238,7 @@ object BlurUtils {
      * @param blurRadius   毛玻璃化比率，虚化程度
      * @return 位图
      */
-    fun doBlur(originBitmap: Bitmap, scaleRatio: Int, blurRadius: Int): Bitmap? {
+    fun setBackgroue(originBitmap: Bitmap, scaleRatio: Int, blurRadius: Int): Bitmap? {
         val scaledBitmap = Bitmap.createScaledBitmap(
             originBitmap,
             originBitmap.width / scaleRatio,
@@ -246,7 +246,7 @@ object BlurUtils {
             false
         )
         val blurBitmap =
-            doBlur(scaledBitmap, blurRadius, false)
+            setBackgroue(scaledBitmap, blurRadius, false)
         scaledBitmap.recycle()
         return blurBitmap
     }
@@ -260,10 +260,10 @@ object BlurUtils {
      * @param blurRadius   虚化程度
      * @return 位图
      */
-    fun doBlur(originBitmap: Bitmap?, width: Int, height: Int, blurRadius: Int): Bitmap? {
+    fun setBackgroue(originBitmap: Bitmap?, width: Int, height: Int, blurRadius: Int): Bitmap? {
         val thumbnail = ThumbnailUtils.extractThumbnail(originBitmap, width, height)
         val blurBitmap =
-            doBlur(thumbnail, blurRadius, true)
+            setBackgroue(thumbnail, blurRadius, true)
         thumbnail.recycle()
         return blurBitmap
     }

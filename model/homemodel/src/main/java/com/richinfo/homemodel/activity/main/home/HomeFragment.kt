@@ -4,6 +4,7 @@ package com.richinfo.homemodel.activity.main.home
 import android.view.View
 import com.bumptech.glide.Glide
 import com.jareven.basemodel.base.BaseLazyFragment
+import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import kotlinx.android.synthetic.main.homemodel_fragment_main_home.*
 
@@ -16,6 +17,9 @@ import kotlinx.android.synthetic.main.homemodel_fragment_main_home.*
  * 简介：首页Fragment
  */
 class HomeFragment : BaseLazyFragment() {
+    override fun lazyInit() {
+        Lg.d("lazyInit 首页Fragment")
+    }
 
 
     override fun getLayoutID(): Int {

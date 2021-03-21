@@ -3,7 +3,9 @@
     package="com.richinfo.imagemodel">
 
     <application>
-        <activity android:name=".ImageCropActivity"></activity>
+        <activity
+            android:name=".ImageCropActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

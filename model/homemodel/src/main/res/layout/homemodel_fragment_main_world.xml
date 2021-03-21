@@ -1,50 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/homemodel_search_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="?attr/colorPrimary">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/homemodel_search_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+    <include
+        android:id="@+id/homemodel_status_bar_fl"
+        layout="@layout/basemodel_status_bar_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/homemodel_status_bar_fl"
-            layout="@layout/basemodel_status_bar_group" />
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/homemodel_search_view"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/homemodel_status_bar_fl" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/base_swipe_refresh_view"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/homemodel_search_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homemodel_search_container">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/word_fragment_rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="ifContentScrolls"
-            android:scrollbars="vertical" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/homemodel_status_bar_fl" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+

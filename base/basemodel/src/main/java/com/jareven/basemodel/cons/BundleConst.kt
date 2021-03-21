@@ -12,7 +12,8 @@ class BundleConst {
     companion object {
         const val BUNDLE_KEY = "bundle"
         const val HOMEMODEL_CAIPU_KEY = "homemodel_caipu_key"
-        const val HOMEMODEL_LARGE_IMAGE_URL_KEY = "homemodel_large_image_url_key"
+        const val HOMEMODEL_LARGE_IMAGE_LIST_KEY = "homemodel_large_image_list_key"
+        const val HOMEMODEL_LARGE_POSITION_KEY = "homemodel_large_position_key"
     }
 
 }

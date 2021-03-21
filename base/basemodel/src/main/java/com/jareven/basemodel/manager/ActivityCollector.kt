@@ -1,4 +1,4 @@
-package com.jareven.basemodel.base
+package com.jareven.basemodel.manager
 
 import android.app.Activity
 import android.os.Process

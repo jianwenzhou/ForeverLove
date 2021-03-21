@@ -5,7 +5,9 @@ import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.ToastUtils
 import com.jareven.basemodel.callback.PermissionCallback
+import com.jareven.basemodel.manager.ActivityCollector
 import com.jareven.thirdlibrary.Lg
 import com.yanzhenjie.permission.AndPermission
 
@@ -103,9 +105,9 @@ abstract class BaseActivity : AppCompatActivity() {
     /*****************************隐藏底部导航栏**********************************/
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) {
-            //hideSystemUI()
-        }
+        //if (hasFocus) {
+        //hideSystemUI()
+        //}
     }
 
     private fun hideSystemUI() {
@@ -133,5 +135,14 @@ abstract class BaseActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     }
+
+
+    /**
+     * 土司展示
+     */
+    fun showMessage(msg: String) {
+        ToastUtils.showShort(msg)
+    }
+
 
 }

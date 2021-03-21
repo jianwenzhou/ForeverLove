@@ -1,4 +1,4 @@
-package com.jareven.basemodel.base
+package com.jareven.basemodel.manager
 
 import android.content.Context
 import com.bumptech.glide.GlideBuilder

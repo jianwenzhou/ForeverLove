@@ -1,5 +1,8 @@
 package com.richinfo.httpmodel.api.entity
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  * @ClassName ImageEntity
  * @Author zjw
@@ -44,6 +47,7 @@ data class ImageEntity(
     }
 }
 
+@Parcelize
 data class Hit(
     val comments: Int,
     val downloads: Int,
@@ -69,7 +73,7 @@ data class Hit(
     val webformatWidth: Int
 
 
-) {
+) : Parcelable {
     override fun toString(): String {
         return "Hit(comments=$comments, downloads=$downloads, favorites=$favorites, id=$id, imageHeight=$imageHeight, imageSize=$imageSize, imageWidth=$imageWidth, largeImageURL='$largeImageURL', likes=$likes, pageURL='$pageURL', previewHeight=$previewHeight, previewURL='$previewURL', previewWidth=$previewWidth, tags='$tags', type='$type', user='$user', userImageURL='$userImageURL', user_id=$user_id, views=$views, webformatHeight=$webformatHeight, webformatURL='$webformatURL', webformatWidth=$webformatWidth)"
     }

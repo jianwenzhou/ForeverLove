@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.homemodel_fragment_main_live.*
  * 简介：生活Fragment
  */
 class LiveFragment : BaseLazyFragment() {
+    override fun lazyInit() {
+    }
 
 
     override fun getLayoutID(): Int {
