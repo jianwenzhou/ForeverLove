@@ -1,27 +1,17 @@
 package com.richinfo.imagemodel
 
-import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.ImageView
+import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.ConvertUtils
-import com.bm.library.PhotoView
-import com.bumptech.glide.request.target.DrawableImageViewTarget
-import com.bumptech.glide.request.transition.Transition
 import com.jareven.basemodel.base.BaseActivity
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
-import com.jareven.basemodel.utils.BlurUtils.setBackgroue
-import com.jareven.basemodel.utils.GlideUtils.loadImage
 import com.richinfo.httpmodel.api.entity.Hit
-import com.richinfo.uimodel.dialog.DialogManager.dismissLoadingDialog
-import com.richinfo.uimodel.dialog.DialogManager.showLoadingDialog
+import kotlinx.android.synthetic.main.imagemodel_activity_image_crop.*
 
 @Route(path = RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY)
 class ImageCropActivity : BaseActivity() {
@@ -29,8 +19,7 @@ class ImageCropActivity : BaseActivity() {
     @JvmField
     @Autowired
     var bundle: Bundle? = null
-    private var photoView: PhotoView? = null
-    private var bgView: ImageView? = null
+
     override fun getLayoutID(): Int {
         return R.layout.imagemodel_activity_image_crop
     }
@@ -43,14 +32,7 @@ class ImageCropActivity : BaseActivity() {
     }
 
     override fun initData() {
-        findView()
         setData()
-    }
-
-    private fun findView() {
-        bgView = findViewById(R.id.imagemodel_bg_view)
-        photoView = findViewById(R.id.imagemodel_photo_view)
-        initPhotoView(photoView)
     }
 
     private fun setData() {
@@ -60,75 +42,14 @@ class ImageCropActivity : BaseActivity() {
 
             val position: Int = it.getInt(BundleConst.HOMEMODEL_LARGE_POSITION_KEY, 0)
 
-            val largeImageURL = data?.get(position)?.largeImageURL
-
-            loadLargeImage(largeImageURL)
-
+            val adapter = ImageViewPagerAdapter(this, data as ArrayList<Hit>)
+            imagemodel_viewpager.orientation = ViewPager2.ORIENTATION_VERTICAL;
+            imagemodel_viewpager.adapter = adapter
+            //设置viewpager位置
+            imagemodel_viewpager.setCurrentItem(position, false)
         }
     }
 
-    /**
-     * 加载图片
-     */
-    private fun loadLargeImage(largeImageURL: String?) {
-        loadImage(this, largeImageURL, null, object : DrawableImageViewTarget(photoView) {
-            override fun onLoadStarted(placeholder: Drawable?) {
-                super.onLoadStarted(placeholder)
-                showLoadingDialog(this@ImageCropActivity)
-            }
-
-            override fun onResourceReady(
-                resource: Drawable,
-                transition: Transition<in Drawable>?
-            ) {
-                super.onResourceReady(resource, transition)
-                dismissLoadingDialog()
-                setBackground(ConvertUtils.drawable2Bitmap(resource))
-            }
-
-            override fun onLoadFailed(errorDrawable: Drawable?) {
-                super.onLoadFailed(errorDrawable)
-                dismissLoadingDialog()
-                showMessage(getString(R.string.imagemodel_image_load_error_tip))
-            }
-        })
-    }
-
-    /**
-     * 设置高斯模糊的背景
-     *
-     * @param bitmap 原图
-     */
-    private fun setBackground(bitmap: Bitmap) {
-        //放大并模糊
-        val bg = setBackgroue(bitmap, 20, 5)
-        //设置给背景
-        bgView?.setImageBitmap(bg)
-    }
-
-    /**
-     * photoView初始化配置
-     *
-     * @param photoView photoView
-     */
-    private fun initPhotoView(photoView: PhotoView?) {
-        // 启用图片缩放功能
-        photoView!!.enable()
-        // 获取图片信息
-        val info = photoView.info
-        // 从一张图片信息变化到现在的图片，用于图片点击后放大浏览，具体使用可以参照demo的使用
-        photoView.animaFrom(info)
-        // 从现在的图片变化到所给定的图片信息，用于图片放大后点击缩小到原来的位置，具体使用可以参照demo的使用
-        photoView.animaTo(info) {
-            //动画完成监听
-        }
-        // 获取/设置 动画持续时间
-        photoView.animaDuring = 300
-        // 获取/设置 最大缩放倍数
-        photoView.maxScale = 2f
-        // 设置动画的插入器
-        photoView.setInterpolator(AccelerateDecelerateInterpolator())
-    }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)

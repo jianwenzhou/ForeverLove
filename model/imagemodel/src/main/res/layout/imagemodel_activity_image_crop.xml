@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/imagemodel_root_view"
+<androidx.viewpager2.widget.ViewPager2 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/imagemodel_viewpager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ImageCropActivity">
-
-    <ImageView
-        android:id="@+id/imagemodel_bg_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        tools:ignore="ContentDescription" />
-
-    <com.bm.library.PhotoView
-        android:transitionName="@string/image_transitionName"
-        android:id="@+id/imagemodel_photo_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerInside" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="match_parent" />

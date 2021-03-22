@@ -19,7 +19,7 @@ abstract class BaseRecyclerViewFragment : BaseLazyFragment(), SwipeRefreshLayout
 
     private lateinit var toolbarContainer: ConstraintLayout
     protected lateinit var recyclerView: RecyclerView
-    protected lateinit var refreshLayout: SwipeRefreshLayout
+    private lateinit var refreshLayout: SwipeRefreshLayout
 
 
     override fun getLayoutID(): Int {

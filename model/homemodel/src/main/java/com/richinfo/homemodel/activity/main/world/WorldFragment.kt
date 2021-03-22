@@ -8,11 +8,9 @@ import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
-import com.jareven.basemodel.utils.FToastUtils
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
 import com.richinfo.httpmodel.api.entity.ImageEntity
-import com.richinfo.uimodel.dialog.DialogManager
 import com.richinfo.uimodel.fragment.BaseRecyclerViewFragment
 import kotlinx.android.synthetic.main.homemodel_fragment_main_world.*
 
@@ -87,14 +85,15 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
-        //解决滑动冲突
-        recyclerView.isNestedScrollingEnabled = false
+
+        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN)
 
         adapter.setOnLoadMoreListener({ loadData(false) }, recyclerView)
 
         adapter.onItemClickListener =
             BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, _, i ->
 
+                LogUtils.d("click$i")
                 val data =
                     baseQuickAdapter.data.filterIsInstance<Hit>() as ArrayList<Hit>
 
@@ -139,7 +138,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
     }
 
     override fun setEmptyOrErrorView(isEmpty: Boolean) {
-        showLoading(false)
+        showContent()
         if (isEmpty) {
             adapter.emptyView = createEmptyView()
         } else {
@@ -150,7 +149,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
     override fun showLoading(isPull: Boolean) {
         if (firstUpdate) {
-            activity?.let { DialogManager.showLoadingDialog(it) }
+            showLoadingView()
         } else {
             isRefreshing(isPull)
         }
@@ -158,7 +157,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
     override fun showContent() {
         if (firstUpdate) {
-            DialogManager.dismissLoadingDialog()
+            dismissLoadingView()
             firstUpdate = false
         } else {
             isRefreshing(false)
@@ -167,8 +166,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
     }
 
     override fun showMessage(msg: String) {
-        FToastUtils.showShort(msg)
-        firstUpdate = false
+        toast(msg)
     }
 
     override fun loadMoreComplete() {

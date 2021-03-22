@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.jareven.basemodel.callback.PermissionCallback
 import com.jareven.basemodel.manager.ActivityCollector
 import com.jareven.thirdlibrary.Lg
+import com.richinfo.uimodel.dialog.LoadingViewDialog
 import com.yanzhenjie.permission.AndPermission
 
 /**
@@ -16,6 +17,7 @@ import com.yanzhenjie.permission.AndPermission
  */
 abstract class BaseActivity : AppCompatActivity() {
 
+    private lateinit var dialog: LoadingViewDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ abstract class BaseActivity : AppCompatActivity() {
         //传递参数注入
         ARouter.getInstance().inject(this)
 
+        dialog = LoadingViewDialog.getInstance()
         //子类初始化
         initView()
         initData()
@@ -142,6 +145,22 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     fun showMessage(msg: String) {
         ToastUtils.showShort(msg)
+    }
+
+    /**
+     * 展示加载中控件
+     */
+    fun showLoadingView() {
+        if (!dialog.isVisible)
+            dialog.show(supportFragmentManager, "tag")
+    }
+
+    /**
+     * 隐藏加载中控件
+     */
+    fun dismissLoadingView() {
+        if (dialog.isVisible)
+            dialog.dismiss()
     }
 
 

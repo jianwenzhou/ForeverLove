@@ -12,6 +12,8 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ToastUtils
+import com.richinfo.uimodel.dialog.LoadingViewDialog
 
 /**
  * @ClassName BaseFragment
@@ -22,6 +24,9 @@ import com.blankj.utilcode.util.BarUtils
  * 简介：BaseFragment基类
  */
 abstract class BaseFragment : Fragment() {
+
+    private lateinit var dialog: LoadingViewDialog
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +39,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        dialog = LoadingViewDialog.getInstance()
         initView(view)
         initData()
     }
@@ -135,6 +141,29 @@ abstract class BaseFragment : Fragment() {
             .withBundle(key, value)
             .withOptionsCompat(options)
             .navigation(activity)
+    }
+
+    /**
+     * 土司展示
+     */
+    fun toast(msg: String) {
+        ToastUtils.showShort(msg)
+    }
+
+    /**
+     * 展示加载中控件
+     */
+    fun showLoadingView() {
+        if (!dialog.isVisible)
+            dialog.show(childFragmentManager, "tag")
+    }
+
+    /**
+     * 隐藏加载中控件
+     */
+    fun dismissLoadingView() {
+        if (dialog.isVisible)
+            dialog.dismiss()
     }
 
 }

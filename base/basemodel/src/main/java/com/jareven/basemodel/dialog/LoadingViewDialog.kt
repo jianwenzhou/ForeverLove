@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.richinfo.uimodel.R
+import com.jareven.basemodel.R
 
 /**
  * @ClassName LoadingViewDialog
@@ -14,6 +14,13 @@ import com.richinfo.uimodel.R
  * 简介：LoadingView
  */
 open class LoadingViewDialog : DialogFragment() {
+
+    companion object {
+        fun getInstance(): LoadingViewDialog {
+            return LoadingViewDialog()
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +32,7 @@ open class LoadingViewDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.uimodel_dialog_loading_layout, container, true)
+        return inflater.inflate(R.layout.basemodel_dialog_loading_layout, container, true)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

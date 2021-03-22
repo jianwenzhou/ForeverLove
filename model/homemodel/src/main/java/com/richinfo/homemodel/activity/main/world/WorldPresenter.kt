@@ -77,12 +77,12 @@ class WorldPresenter(owner: Fragment, private var view: CommonView<ImageEntity>)
     }
 
     private fun onDataFail(isEmpty: Boolean, msg: String) {
-        view.showMessage(msg)
         if (page == 1) {
             view.setEmptyOrErrorView(isEmpty)
         } else {
             view.noMoreData()
         }
+        view.showMessage(msg)
     }
 
 

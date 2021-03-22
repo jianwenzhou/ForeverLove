@@ -8,12 +8,10 @@ import com.blankj.utilcode.util.ConvertUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
-import com.jareven.basemodel.utils.FToastUtils
 import com.richinfo.homemodel.R
 import com.richinfo.homemodel.activity.main.world.CommonView
 import com.richinfo.httpmodel.api.entity.AliRecipeEntity
 import com.richinfo.httpmodel.api.entity.CaiPuDatas
-import com.richinfo.uimodel.dialog.DialogManager
 import com.richinfo.uimodel.fragment.BaseRecyclerViewFragment
 import com.richinfo.uimodel.recyclerview.SpacesItemDecoration
 import kotlin.math.roundToInt
@@ -60,6 +58,8 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+
+        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN)
 
         recyclerView.addItemDecoration(SpacesItemDecoration(ConvertUtils.dp2px(40f)))
 
@@ -120,7 +120,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
     }
 
     override fun setEmptyOrErrorView(isEmpty: Boolean) {
-        showLoading(false)
+        showContent()
         if (isEmpty) {
             adapter.emptyView = createEmptyView()
         } else {
@@ -131,7 +131,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
     override fun showLoading(isPull: Boolean) {
         if (firstUpdate) {
-            activity?.let { DialogManager.showLoadingDialog(it) }
+            showLoadingView()
         } else {
             isRefreshing(isPull)
         }
@@ -139,7 +139,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
     override fun showContent() {
         if (firstUpdate) {
-            DialogManager.dismissLoadingDialog()
+            dismissLoadingView()
             firstUpdate = false
         } else {
             isRefreshing(false)
@@ -148,8 +148,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
     }
 
     override fun showMessage(msg: String) {
-        FToastUtils.showShort(msg)
-        firstUpdate = false
+        toast(msg)
     }
 
     override fun loadMoreComplete() {
