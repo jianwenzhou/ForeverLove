@@ -1,6 +1,8 @@
 package com.jareven.foreverlove;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * @ClassName Test
@@ -23,13 +25,35 @@ class Test {
 
         boolean bb = hashSet.add(b);
 
-        System.out.print("a=" + a.hashCode());
+//        System.out.print("a=" + a.hashCode());
+//        System.out.print("\n");
+//        System.out.print("b=" + b.hashCode());
+//        System.out.print("\n");
+//        System.out.print("ab=" + ab);
+//        System.out.print("\n");
+//        System.out.print("bb=" + bb);
+//        System.out.print("\n");
+
+
+        List<String> list = new ArrayList<>();
+        System.out.print(list.hashCode());
         System.out.print("\n");
-        System.out.print("b=" + b.hashCode());
+        list.add("0");
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
+        list.add("6");
+        System.out.print(list.hashCode());
         System.out.print("\n");
-        System.out.print("ab=" + ab);
+        if (list.size() > 4) {
+            list = list.subList(0, 4);
+        }
+
+        System.out.print(list.hashCode());
         System.out.print("\n");
-        System.out.print("bb=" + bb);
+        System.out.print(list);
 
 
     }

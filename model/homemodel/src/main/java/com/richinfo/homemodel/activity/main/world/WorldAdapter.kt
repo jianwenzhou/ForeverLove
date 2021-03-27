@@ -3,9 +3,11 @@ package com.richinfo.homemodel.activity.main.world
 import android.widget.ImageView
 import com.blankj.utilcode.util.ScreenUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.module.LoadMoreModule
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.jareven.basemodel.utils.GlideUtils.loadImage
 import com.jareven.basemodel.utils.GradientDrawableUtils
+import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
 
@@ -15,21 +17,22 @@ import com.richinfo.httpmodel.api.entity.Hit
  * @Date 2021/3/17 23:08
  * 简介：
  */
-class WorldAdapter(layoutResId: Int, data: List<Hit>?) :
-    BaseQuickAdapter<Hit?, BaseViewHolder?>(layoutResId, data) {
+class WorldAdapter(layoutResId: Int, data: MutableList<Hit>) :
+    BaseQuickAdapter<Hit, BaseViewHolder>(layoutResId, data), LoadMoreModule {
 
-    override fun convert(p0: BaseViewHolder, p1: Hit?) {
+    override fun convert(holder: BaseViewHolder, item: Hit) {
+        Lg.d("WorldAdapter convert")
 
-        val view = p0.getView<ImageView>(R.id.word_item_cover_iv)
+        val view = holder.getView<ImageView>(R.id.word_item_cover_iv)
 
-        setImageSize(p1?.previewWidth, p1?.previewHeight, view)
+        setImageSize(item.previewWidth, item.previewHeight, view)
 
         val gradientDrawable = GradientDrawableUtils.createRandomDrawable()
 
         //加载原图
-        loadImage(mContext, p1?.webformatURL, gradientDrawable, view)
-
+        loadImage(context, item.webformatURL, gradientDrawable, view)
     }
+
 
     private fun setImageSize(
         imageWidth: Int?,

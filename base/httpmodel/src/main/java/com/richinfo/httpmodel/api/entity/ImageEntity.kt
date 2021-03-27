@@ -38,7 +38,7 @@ import kotlinx.android.parcel.Parcelize
  */
 
 data class ImageEntity(
-    val hits: List<Hit>,
+    val hits: MutableList<Hit>,
     val total: Int,
     val totalHits: Int
 ) {

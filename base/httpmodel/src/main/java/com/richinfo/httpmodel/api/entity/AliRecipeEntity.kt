@@ -119,7 +119,7 @@ data class AliRecipeEntity(
 data class ShowapiResBody(
     val allNum: Int,
     val allPage: Int,
-    val datas: List<CaiPuDatas>,
+    val datas: MutableList<CaiPuDatas>,
     val flag: Boolean,
     val maxResult: Int,
     val msg: String,

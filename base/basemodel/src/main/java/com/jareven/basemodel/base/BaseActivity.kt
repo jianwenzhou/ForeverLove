@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ToastUtils
 import com.jareven.basemodel.callback.PermissionCallback
+import com.jareven.basemodel.dialog.LoadingViewDialog
 import com.jareven.basemodel.manager.ActivityCollector
 import com.jareven.thirdlibrary.Lg
-import com.richinfo.uimodel.dialog.LoadingViewDialog
 import com.yanzhenjie.permission.AndPermission
 
 /**
@@ -55,6 +55,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        dismissLoadingView()
         ActivityCollector.removeActivity(this)
     }
 

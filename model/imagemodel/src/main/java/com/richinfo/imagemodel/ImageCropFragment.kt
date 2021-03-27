@@ -83,7 +83,7 @@ class ImageCropFragment : BaseFragment() {
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
                     dismissLoadingView()
-                    toast(getString(R.string.imagemodel_image_load_error_tip))
+                    toast("原图加载失败")
                 }
             })
     }

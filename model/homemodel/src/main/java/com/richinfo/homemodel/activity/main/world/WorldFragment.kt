@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
+import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
 import com.richinfo.httpmodel.api.entity.ImageEntity
@@ -28,8 +28,6 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
     private lateinit var presenter: WorldPresenter
 
     private lateinit var adapter: WorldAdapter
-
-    private var firstUpdate = true
 
     private var searchKey: String = "风景"
 
@@ -65,7 +63,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                LogUtils.d("zjw newText=$newText")
+                Lg.d("zjw newText=$newText")
                 return false
             }
         })
@@ -86,28 +84,27 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
 
-        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN)
+        adapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.AlphaIn)
 
-        adapter.setOnLoadMoreListener({ loadData(false) }, recyclerView)
+        adapter.loadMoreModule.setOnLoadMoreListener { loadData(false) }
 
-        adapter.onItemClickListener =
-            BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, _, i ->
 
-                LogUtils.d("click$i")
-                val data =
-                    baseQuickAdapter.data.filterIsInstance<Hit>() as ArrayList<Hit>
+        adapter.setOnItemClickListener { adapter, _, position ->
+            Lg.d("click$position")
+            val data =
+                adapter.data.filterIsInstance<Hit>() as ArrayList<Hit>
 
-                val bundle = Bundle()
-                bundle.putParcelableArrayList(BundleConst.HOMEMODEL_LARGE_IMAGE_LIST_KEY, data)
-                bundle.putInt(BundleConst.HOMEMODEL_LARGE_POSITION_KEY, i)
+            val bundle = Bundle()
+            bundle.putParcelableArrayList(BundleConst.HOMEMODEL_LARGE_IMAGE_LIST_KEY, data)
+            bundle.putInt(BundleConst.HOMEMODEL_LARGE_POSITION_KEY, position)
 
-                routerJump(
-                    RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY,
-                    BundleConst.BUNDLE_KEY,
-                    bundle
-                )
+            routerJump(
+                RouterPathConst.ROUTER_IMAGEMODEL_IMAGE_ACTIVITY,
+                BundleConst.BUNDLE_KEY,
+                bundle
+            )
 
-            }
+        }
     }
 
 
@@ -122,7 +119,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
     override fun noMoreData() {
         addFooterView()
-        adapter.loadMoreEnd(true)
+        adapter.loadMoreModule.loadMoreEnd(true)
     }
 
     override fun setMoreData(list: ImageEntity) {
@@ -134,34 +131,25 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
     }
 
     override fun setData(list: ImageEntity) {
-        adapter.setNewData(list.hits)
+        adapter.setNewInstance(list.hits)
     }
 
     override fun setEmptyOrErrorView(isEmpty: Boolean) {
         showContent()
         if (isEmpty) {
-            adapter.emptyView = createEmptyView()
+            adapter.setEmptyView(createEmptyView())
         } else {
-            adapter.emptyView = createErrorView()
+            adapter.setEmptyView(createErrorView())
         }
     }
 
 
     override fun showLoading(isPull: Boolean) {
-        if (firstUpdate) {
-            showLoadingView()
-        } else {
-            isRefreshing(isPull)
-        }
+        isRefreshing(isPull)
     }
 
     override fun showContent() {
-        if (firstUpdate) {
-            dismissLoadingView()
-            firstUpdate = false
-        } else {
-            isRefreshing(false)
-        }
+        isRefreshing(false)
         removeFooterView()
     }
 
@@ -170,7 +158,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
     }
 
     override fun loadMoreComplete() {
-        adapter.loadMoreComplete()
+        adapter.loadMoreModule.loadMoreComplete()
     }
 
     /**

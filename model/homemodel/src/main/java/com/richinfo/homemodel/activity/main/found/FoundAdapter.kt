@@ -3,9 +3,11 @@ package com.richinfo.homemodel.activity.main.found
 import android.widget.ImageView
 import com.blankj.utilcode.util.ScreenUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.module.LoadMoreModule
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.jareven.basemodel.utils.GlideUtils.loadImage
 import com.jareven.basemodel.utils.GradientDrawableUtils
+import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.CaiPuDatas
 
@@ -13,22 +15,25 @@ import com.richinfo.httpmodel.api.entity.CaiPuDatas
  * @ClassName WorldAdapter
  * @Author zjw
  * @Date 2021/3/17 23:08
- * 简介：
+ * 简介：菜谱adapter
  */
-class FoundAdapter(layoutResId: Int, data: List<CaiPuDatas>?) :
-    BaseQuickAdapter<CaiPuDatas?, BaseViewHolder?>(layoutResId, data) {
+class FoundAdapter(layoutResId: Int, data: MutableList<CaiPuDatas>) :
+    BaseQuickAdapter<CaiPuDatas, BaseViewHolder>(layoutResId, data), LoadMoreModule {
 
-    override fun convert(p0: BaseViewHolder, p1: CaiPuDatas?) {
 
-        val view = p0.getView<ImageView>(R.id.found_item_cover_iv)
+    override fun convert(holder: BaseViewHolder, item: CaiPuDatas) {
+
+        Lg.d("FoundAdapter convert=${holder.layoutPosition}")
+
+        val view = holder.getView<ImageView>(R.id.found_item_cover_iv)
 
         val gradientDrawable = GradientDrawableUtils.createRandomDrawable()
 
 
-        p0.setText(R.id.found_item_name_tv, p1?.cpName)
+        holder.setText(R.id.found_item_name_tv, item.cpName)
 
         //加载原图
-        loadImage(mContext, p1?.largeImg, gradientDrawable, view)
+        loadImage(context, item.largeImg, gradientDrawable, view)
 
     }
 

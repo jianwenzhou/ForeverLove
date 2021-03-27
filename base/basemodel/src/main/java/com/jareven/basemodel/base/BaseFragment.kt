@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.richinfo.uimodel.dialog.LoadingViewDialog
+import com.jareven.basemodel.dialog.LoadingViewDialog
 
 /**
  * @ClassName BaseFragment
@@ -164,6 +164,11 @@ abstract class BaseFragment : Fragment() {
     fun dismissLoadingView() {
         if (dialog.isVisible)
             dialog.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dismissLoadingView()
     }
 
 }

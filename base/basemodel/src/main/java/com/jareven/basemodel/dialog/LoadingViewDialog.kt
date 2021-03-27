@@ -1,10 +1,12 @@
-package com.richinfo.uimodel.dialog
+package com.jareven.basemodel.dialog
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.blankj.utilcode.util.ConvertUtils
 import com.jareven.basemodel.R
 
 /**
@@ -37,6 +39,18 @@ open class LoadingViewDialog : DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        val window = dialog?.window
+        val params = window?.attributes
+        params?.gravity = Gravity.CENTER
+        params?.width = ConvertUtils.dp2px(120f)
+        params?.height = ConvertUtils.dp2px(120f)
+        window?.attributes = params
+
     }
 
 

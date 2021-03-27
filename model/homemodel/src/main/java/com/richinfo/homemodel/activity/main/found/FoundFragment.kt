@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.ConvertUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
+import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.homemodel.activity.main.world.CommonView
 import com.richinfo.httpmodel.api.entity.AliRecipeEntity
@@ -30,12 +31,10 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
     private lateinit var adapter: FoundAdapter
 
-    private var firstUpdate = true
-
     override fun initView(view: View?) {
         super.initView(view)
-        initRecyclerView()
         initStatusBar()
+        initRecyclerView()
     }
 
     override fun createToolBar(): View? {
@@ -59,38 +58,38 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
 
-        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN)
+        adapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.AlphaIn)
 
         recyclerView.addItemDecoration(SpacesItemDecoration(ConvertUtils.dp2px(40f)))
 
-        adapter.setOnLoadMoreListener({ loadData(false) }, recyclerView)
+        adapter.loadMoreModule.setOnLoadMoreListener { loadData(false) }
 
-        adapter.onItemClickListener =
-            BaseQuickAdapter.OnItemClickListener { baseQuickAdapter, v, i ->
-                val item = baseQuickAdapter.getItem(i) as CaiPuDatas
+        adapter.setOnItemClickListener { adapter, view, position ->
+            Lg.d("FoundFragment OnItemClickListener")
+            val item = adapter.getItem(position) as CaiPuDatas
 
-                val activityOptionsCompat: ActivityOptionsCompat =
-                    ActivityOptionsCompat.makeScaleUpAnimation(
-                        v,
-                        (v.x.roundToInt() + v.width) / 2,
-                        (v.y.roundToInt() + v.height) / 2,
-                        v.width,
-                        v.height
-                    )
+            val activityOptionsCompat: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeScaleUpAnimation(
+                    view,
+                    (view.x.roundToInt() + view.width) / 2,
+                    (view.y.roundToInt() + view.height) / 2,
+                    view.width,
+                    view.height
+                )
 
-                val bundle = Bundle()
-                bundle.putParcelable(BundleConst.HOMEMODEL_CAIPU_KEY, item)
+            val bundle = Bundle()
+            bundle.putParcelable(BundleConst.HOMEMODEL_CAIPU_KEY, item)
 
-                activity?.let {
-                    routerJump(
-                        RouterPathConst.ROUTER_FOUND_DETAILS_ACTIVITY,
-                        BundleConst.BUNDLE_KEY,
-                        bundle,
-                        activityOptionsCompat,
-                        it
-                    )
-                }
+            activity?.let {
+                routerJump(
+                    RouterPathConst.ROUTER_FOUND_DETAILS_ACTIVITY,
+                    BundleConst.BUNDLE_KEY,
+                    bundle,
+                    activityOptionsCompat,
+                    it
+                )
             }
+        }
     }
 
     override fun onRefresh() {
@@ -104,7 +103,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
     override fun noMoreData() {
         addFooterView()
-        adapter.loadMoreEnd(true)
+        adapter.loadMoreModule.loadMoreEnd(true)
     }
 
     override fun setMoreData(list: AliRecipeEntity) {
@@ -116,34 +115,25 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
     }
 
     override fun setData(list: AliRecipeEntity) {
-        adapter.setNewData(list.showapi_res_body.datas)
+        adapter.setNewInstance(list.showapi_res_body.datas)
     }
 
     override fun setEmptyOrErrorView(isEmpty: Boolean) {
         showContent()
         if (isEmpty) {
-            adapter.emptyView = createEmptyView()
+            adapter.setEmptyView(createEmptyView())
         } else {
-            adapter.emptyView = createErrorView()
+            adapter.setEmptyView(createErrorView())
         }
     }
 
 
     override fun showLoading(isPull: Boolean) {
-        if (firstUpdate) {
-            showLoadingView()
-        } else {
-            isRefreshing(isPull)
-        }
+        isRefreshing(isPull)
     }
 
     override fun showContent() {
-        if (firstUpdate) {
-            dismissLoadingView()
-            firstUpdate = false
-        } else {
-            isRefreshing(false)
-        }
+        isRefreshing(false)
         removeFooterView()
     }
 
@@ -152,7 +142,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
     }
 
     override fun loadMoreComplete() {
-        adapter.loadMoreComplete()
+        adapter.loadMoreModule.loadMoreComplete()
     }
 
     /**
