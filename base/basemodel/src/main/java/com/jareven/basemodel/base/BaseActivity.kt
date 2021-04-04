@@ -1,10 +1,14 @@
 package com.jareven.basemodel.base
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
+import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.jareven.basemodel.callback.PermissionCallback
 import com.jareven.basemodel.dialog.LoadingViewDialog
@@ -38,6 +42,29 @@ abstract class BaseActivity : AppCompatActivity() {
         //子类初始化
         initView()
         initData()
+    }
+
+    /**
+     * 状态栏控件
+     */
+    open fun addStateBarView(group: ViewGroup) {
+        group.addView(createTopView())
+    }
+
+
+    /**
+     * 创造一个透明的状态栏，避免fragment布局顶上状态栏
+     */
+    private fun createTopView(): View? {
+        val view = View(this)
+        val statusBarHeight: Int = BarUtils.getStatusBarHeight()
+        val params = RelativeLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            statusBarHeight
+        )
+        view.layoutParams = params
+        view.setBackgroundColor(Color.TRANSPARENT)
+        return view
     }
 
     //可重写,设置状态栏
@@ -153,7 +180,7 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     fun showLoadingView() {
         if (!dialog.isVisible)
-            dialog.show(supportFragmentManager, "tag")
+            dialog.show(supportFragmentManager)
     }
 
     /**

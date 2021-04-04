@@ -1,47 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!--第一部分：伸缩工具栏-->
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+        android:id="@+id/activity_found_details_abl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp">
+        app:elevation="10dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/activity_found_details_ctl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title=""
-            app:titleEnabled="false">
+            app:titleEnabled="true">
 
-            <ImageView
-                android:id="@+id/activity_found_details_cover_iv"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:background="@color/brown_500"
-                android:scaleType="fitXY"
-                android:contentDescription="@string/homemodel_caipu_cover" />
+                android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:background="@color/yellow_800"
-                android:minHeight="46dp"
-                app:layout_collapseMode="pin"
-                app:title="">
+                <ImageView
+                    android:id="@+id/activity_found_details_cover_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:scaleType="centerCrop"
+                    tools:ignore="ContentDescription" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/activity_found_details_user_iv"
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_48"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="196dp" />
 
                 <TextView
+                    android:id="@+id/activity_found_details_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="个人主页"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_below="@id/activity_found_details_user_iv"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/activity_found_details_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/homemodel_common_toolbar_44dp"
+                android:background="@color/colorPrimary"
+                android:minHeight="@dimen/homemodel_common_toolbar_44dp"
+                app:layout_collapseMode="pin">
+
+                <ImageView
+                    android:id="@+id/activity_found_details_back_iv"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:src="@mipmap/uimodel_icon_common_back"
+                    tools:ignore="ContentDescription" />
+
+
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -50,7 +73,7 @@
 
     <!--第二部分：主要内容-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
+        android:id="@+id/activity_found_details_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

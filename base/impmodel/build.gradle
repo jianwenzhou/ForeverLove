@@ -104,14 +104,12 @@ dependencies {
     //下拉刷新
     api "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout"
 
-    //占位动画
-    api "me.samlss:broccoli:$broccoli"
-
     //photoView
     api "com.bm.photoview:library:$photoview"
 
     //Lottie
     api "com.airbnb.android:lottie:$lottieVersion"
 
-
+    //圆形图片
+    api "de.hdodenhof:circleimageview:$circleimageview"
 }

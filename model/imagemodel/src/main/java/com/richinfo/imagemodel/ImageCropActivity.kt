@@ -43,6 +43,7 @@ class ImageCropActivity : BaseActivity() {
             val position: Int = it.getInt(BundleConst.HOMEMODEL_LARGE_POSITION_KEY, 0)
 
             val adapter = ImageViewPagerAdapter(this, data as ArrayList<Hit>)
+            imagemodel_viewpager.offscreenPageLimit = 3
             imagemodel_viewpager.orientation = ViewPager2.ORIENTATION_VERTICAL;
             imagemodel_viewpager.adapter = adapter
             //设置viewpager位置

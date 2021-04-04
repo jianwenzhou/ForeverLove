@@ -34,4 +34,6 @@
             android:scrollbars="vertical" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <include layout="@layout/basemodel_loading_view_layout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

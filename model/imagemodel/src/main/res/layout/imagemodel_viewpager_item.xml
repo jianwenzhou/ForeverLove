@@ -26,4 +26,8 @@
         android:scaleType="centerInside"
         android:transitionName="@string/image_transitionName" />
 
+
+    <include layout="@layout/basemodel_loading_view_layout" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

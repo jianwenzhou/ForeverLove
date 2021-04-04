@@ -140,7 +140,7 @@ data class CaiPuDatas(
     val des: String,
     val largeImg: String,
     val smallImg: String,
-    val steps: List<Step>,
+    val steps: MutableList<Step>,
     val tip: String,
     val type: String,
     val type_v1: String,

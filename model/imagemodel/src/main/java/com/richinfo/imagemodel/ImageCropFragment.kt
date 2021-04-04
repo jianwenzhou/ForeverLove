@@ -12,6 +12,7 @@ import com.bm.library.PhotoView
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.jareven.basemodel.base.BaseFragment
+import com.jareven.basemodel.dialog.LoadingView
 import com.jareven.basemodel.utils.BlurUtils
 import com.jareven.basemodel.utils.GlideUtils
 import com.richinfo.httpmodel.api.entity.Hit
@@ -25,6 +26,7 @@ import com.richinfo.httpmodel.api.entity.Hit
 class ImageCropFragment : BaseFragment() {
 
     private var data: Hit? = null
+    private var loadingView: LoadingView? = null
 
     companion object {
         fun getInstance(data: Hit?): ImageCropFragment {
@@ -48,6 +50,7 @@ class ImageCropFragment : BaseFragment() {
     override fun initView(view: View?) {
         val bgView = view?.findViewById<ImageView>(R.id.imagemodel_item_bg_view)
         val photoView = view?.findViewById<ImageView>(R.id.imagemodel_item_photo_view)
+        loadingView = view?.findViewById(R.id.dialog_loading_view)
 
         loadLargeImage(data?.largeImageURL, bgView, photoView)
     }
@@ -68,7 +71,7 @@ class ImageCropFragment : BaseFragment() {
             object : DrawableImageViewTarget(photoView) {
                 override fun onLoadStarted(placeholder: Drawable?) {
                     super.onLoadStarted(placeholder)
-                    showLoadingView()
+                    loadingView?.show()
                 }
 
                 override fun onResourceReady(
@@ -76,13 +79,13 @@ class ImageCropFragment : BaseFragment() {
                     transition: Transition<in Drawable>?
                 ) {
                     super.onResourceReady(resource, transition)
-                    dismissLoadingView()
+                    loadingView?.dismiss()
                     setBackground(ConvertUtils.drawable2Bitmap(resource), bgView)
                 }
 
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
-                    dismissLoadingView()
+                    loadingView?.dismiss()
                     toast("原图加载失败")
                 }
             })

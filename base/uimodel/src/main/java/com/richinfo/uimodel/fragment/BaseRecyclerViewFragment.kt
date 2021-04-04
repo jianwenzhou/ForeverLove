@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jareven.basemodel.base.BaseLazyFragment
+import com.jareven.basemodel.dialog.LoadingView
 import com.richinfo.uimodel.R
 
 /**
@@ -20,6 +21,7 @@ abstract class BaseRecyclerViewFragment : BaseLazyFragment(), SwipeRefreshLayout
     private lateinit var toolbarContainer: ConstraintLayout
     protected lateinit var recyclerView: RecyclerView
     private lateinit var refreshLayout: SwipeRefreshLayout
+    private lateinit var loadingView: LoadingView
 
 
     override fun getLayoutID(): Int {
@@ -31,6 +33,7 @@ abstract class BaseRecyclerViewFragment : BaseLazyFragment(), SwipeRefreshLayout
             toolbarContainer = it.findViewById(R.id.uimodel_toolbar_container)!!
             recyclerView = it.findViewById(R.id.uimodel_recycler_view)!!
             refreshLayout = it.findViewById(R.id.uimodel_swipe_refresh_view)!!
+            loadingView = it.findViewById(R.id.dialog_loading_view)!!
         }
         initRefreshView()
         initToolBar()
@@ -97,5 +100,19 @@ abstract class BaseRecyclerViewFragment : BaseLazyFragment(), SwipeRefreshLayout
         )
     }
 
+
+    /**
+     * 展示加载中控件
+     */
+    fun showLoadingView() {
+        loadingView.show()
+    }
+
+    /**
+     * 隐藏加载中控件
+     */
+    fun dismissLoadingView() {
+        loadingView.dismiss()
+    }
 
 }

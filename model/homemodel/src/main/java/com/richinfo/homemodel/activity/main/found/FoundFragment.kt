@@ -1,5 +1,6 @@
 package com.richinfo.homemodel.activity.main.found
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
@@ -31,6 +32,8 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
     private lateinit var adapter: FoundAdapter
 
+    private var firstUpdate = true
+
     override fun initView(view: View?) {
         super.initView(view)
         initStatusBar()
@@ -48,6 +51,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
     /**
      * 图片列表
      */
+    @SuppressLint("ClickableViewAccessibility")
     private fun initRecyclerView() {
         val mutableList = ArrayList<CaiPuDatas>()
         adapter = FoundAdapter(R.layout.homemodel_fragment_found_item, mutableList)
@@ -60,7 +64,16 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
         adapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.AlphaIn)
 
-        recyclerView.addItemDecoration(SpacesItemDecoration(ConvertUtils.dp2px(40f)))
+        val hashMap: HashMap<String, Int> = HashMap()
+        hashMap[SpacesItemDecoration.LEFT] = ConvertUtils.dp2px(40f)
+        hashMap[SpacesItemDecoration.TOP] = ConvertUtils.dp2px(40f)
+        hashMap[SpacesItemDecoration.RIGHT] = ConvertUtils.dp2px(40f)
+        hashMap[SpacesItemDecoration.BOTTOM] = ConvertUtils.dp2px(40f)
+        recyclerView.addItemDecoration(
+            SpacesItemDecoration(
+                hashMap
+            )
+        )
 
         adapter.loadMoreModule.setOnLoadMoreListener { loadData(false) }
 
@@ -71,8 +84,8 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
             val activityOptionsCompat: ActivityOptionsCompat =
                 ActivityOptionsCompat.makeScaleUpAnimation(
                     view,
-                    (view.x.roundToInt() + view.width) / 2,
-                    (view.y.roundToInt() + view.height) / 2,
+                    (view.x.roundToInt()),
+                    (view.y.roundToInt()),
                     view.width,
                     view.height
                 )
@@ -90,6 +103,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
                 )
             }
         }
+
     }
 
     override fun onRefresh() {
@@ -129,11 +143,20 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
 
     override fun showLoading(isPull: Boolean) {
-        isRefreshing(isPull)
+        if (firstUpdate) {
+            showLoadingView()
+        } else {
+            isRefreshing(isPull)
+        }
     }
 
     override fun showContent() {
-        isRefreshing(false)
+        if (firstUpdate) {
+            dismissLoadingView()
+            firstUpdate = false
+        } else {
+            isRefreshing(false)
+        }
         removeFooterView()
     }
 

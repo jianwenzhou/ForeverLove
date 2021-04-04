@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.jareven.basemodel.base.BaseActivity
 import com.jareven.basemodel.cons.RouterPathConst
+import com.jareven.basemodel.manager.ActivityCollector
 import com.jareven.basemodel.utils.FToastUtils
 import com.richinfo.homemodel.R
 import com.richinfo.homemodel.activity.main.found.FoundFragment
@@ -67,7 +68,6 @@ open class MainActivity : BaseActivity() {
         VMainViewPager.isUserInputEnabled = false
         //底部导航栏和ViewPager2绑定
         VMainBottomBar.setupWithViewPager2(VMainViewPager)
-
         //viewPager切换监听
         VMainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -112,9 +112,9 @@ open class MainActivity : BaseActivity() {
         } else {
             //退出到后台
             FToastUtils.cancel()
-            moveTaskToBack(isFinishing)
+            //moveTaskToBack(isFinishing)
             //完全退出APP，杀死进程
-            //ActivityCollector.finishAll()
+            ActivityCollector.finishAll()
         }
 
     }

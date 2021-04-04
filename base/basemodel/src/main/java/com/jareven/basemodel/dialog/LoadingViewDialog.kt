@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.jareven.basemodel.R
 
@@ -16,6 +17,9 @@ import com.jareven.basemodel.R
  * 简介：LoadingView
  */
 open class LoadingViewDialog : DialogFragment() {
+
+
+    private lateinit var loadingView: LoadingView
 
     companion object {
         fun getInstance(): LoadingViewDialog {
@@ -34,11 +38,14 @@ open class LoadingViewDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.basemodel_dialog_loading_layout, container, true)
+        val view = inflater.inflate(R.layout.basemodel_loading_view_layout, container, true)
+        loadingView = view.findViewById(R.id.dialog_loading_view)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        dialog?.setCanceledOnTouchOutside(false)
     }
 
 
@@ -51,6 +58,16 @@ open class LoadingViewDialog : DialogFragment() {
         params?.height = ConvertUtils.dp2px(120f)
         window?.attributes = params
 
+    }
+
+    fun show(manager: FragmentManager) {
+        super.show(manager, null)
+        loadingView.show()
+    }
+
+    override fun dismiss() {
+        super.dismiss()
+        loadingView.dismiss()
     }
 
 

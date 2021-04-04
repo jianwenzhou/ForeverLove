@@ -29,6 +29,8 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
     private lateinit var adapter: WorldAdapter
 
+    private var firstUpdate = true
+
     private var searchKey: String = "风景"
 
 
@@ -145,11 +147,20 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
 
     override fun showLoading(isPull: Boolean) {
-        isRefreshing(isPull)
+        if (firstUpdate) {
+            showLoadingView()
+        } else {
+            isRefreshing(isPull)
+        }
     }
 
     override fun showContent() {
-        isRefreshing(false)
+        if (firstUpdate) {
+            dismissLoadingView()
+            firstUpdate = false
+        } else {
+            isRefreshing(false)
+        }
         removeFooterView()
     }
 
