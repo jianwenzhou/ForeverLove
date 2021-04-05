@@ -36,6 +36,9 @@ class ImageCropActivity : BaseActivity() {
     }
 
     private fun setData() {
+        activity_image_crop_back_iv.setOnClickListener { finish() }
+
+
         bundle?.let {
 
             val data = it.getParcelableArrayList<Hit>(BundleConst.HOMEMODEL_LARGE_IMAGE_LIST_KEY)

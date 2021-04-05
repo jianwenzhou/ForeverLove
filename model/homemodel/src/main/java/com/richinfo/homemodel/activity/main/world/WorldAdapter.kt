@@ -7,7 +7,6 @@ import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.jareven.basemodel.utils.GlideUtils.loadImage
 import com.jareven.basemodel.utils.GradientDrawableUtils
-import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
 
@@ -21,7 +20,6 @@ class WorldAdapter(layoutResId: Int, data: MutableList<Hit>) :
     BaseQuickAdapter<Hit, BaseViewHolder>(layoutResId, data), LoadMoreModule {
 
     override fun convert(holder: BaseViewHolder, item: Hit) {
-        Lg.d("WorldAdapter convert")
 
         val view = holder.getView<ImageView>(R.id.word_item_cover_iv)
 

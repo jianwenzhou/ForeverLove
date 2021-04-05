@@ -86,7 +86,6 @@ class ImageCropFragment : BaseFragment() {
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
                     loadingView?.dismiss()
-                    toast("原图加载失败")
                 }
             })
     }
