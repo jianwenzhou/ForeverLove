@@ -9,6 +9,7 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.jareven.basemodel.callback.PermissionCallback
@@ -191,5 +192,18 @@ abstract class BaseActivity : AppCompatActivity() {
             dialog.dismiss()
     }
 
+    /**
+     * 应用点击后对视图缩放
+     */
+    fun applyPressedViewScale(view: View) {
+        ClickUtils.applyPressedViewScale(view)
+    }
+
+    /**
+     * 扩大点击区域
+     */
+    fun expandClickArea(view: View) {
+        ClickUtils.expandClickArea(view, 5)
+    }
 
 }

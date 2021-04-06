@@ -35,7 +35,7 @@ class FoundDetailsActivity : BaseActivity() {
     }
 
     override fun initView() {
-
+        expandClickArea(activity_found_details_back_iv)
         activity_found_details_back_iv.setOnClickListener { finish() }
 
         setToolbarAlpha()

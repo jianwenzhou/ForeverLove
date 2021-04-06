@@ -36,6 +36,7 @@ class ImageCropActivity : BaseActivity() {
     }
 
     private fun setData() {
+        expandClickArea(activity_image_crop_back_iv)
         activity_image_crop_back_iv.setOnClickListener { finish() }
 
 

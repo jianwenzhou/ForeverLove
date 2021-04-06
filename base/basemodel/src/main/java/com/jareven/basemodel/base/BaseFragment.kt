@@ -12,6 +12,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ToastUtils
 
 /**
@@ -146,4 +147,17 @@ abstract class BaseFragment : Fragment() {
     }
 
 
+    /**
+     * 应用点击后对视图缩放
+     */
+    fun applyPressedViewScale(view: View) {
+        ClickUtils.applyPressedViewScale(view)
+    }
+
+    /**
+     * 扩大点击区域
+     */
+    fun expandClickArea(view: View) {
+        ClickUtils.expandClickArea(view, 5)
+    }
 }
