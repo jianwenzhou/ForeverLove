@@ -53,6 +53,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
      * 搜索按钮
      */
     private fun initSearchView() {
+        homemodel_search_view?.queryHint = getString(R.string.homemodel_world_search_hint)
         homemodel_search_view?.setOnQueryTextListener(object :
             android.widget.SearchView.OnQueryTextListener,
             SearchView.OnQueryTextListener {

@@ -21,7 +21,6 @@
             android:layout_centerInParent="true"
             app:closeIcon="@mipmap/uimodel_icon_circle_back"
             app:iconifiedByDefault="false"
-            app:queryHint="开始探索美好.."
             app:searchIcon="@mipmap/homemodel_icon_search" />
 
     </RelativeLayout>

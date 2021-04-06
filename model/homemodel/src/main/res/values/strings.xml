@@ -7,5 +7,7 @@
     <string name="homemodel_splash_skip_string">跳过</string>
     <string name="homemodel_caipu_cover_des">菜谱图片</string>
     <string name="homemodel_caipu_cover">食谱封面</string>
+    <string name="homemodel_found_search_hint">开始探索美食</string>
+    <string name="homemodel_world_search_hint">开始探索世界</string>
 
 </resources>

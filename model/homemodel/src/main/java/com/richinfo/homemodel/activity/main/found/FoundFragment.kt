@@ -57,6 +57,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
      * 搜索按钮
      */
     private fun initSearchView() {
+        homemodel_search_view?.queryHint = getString(R.string.homemodel_found_search_hint)
         homemodel_search_view?.setOnQueryTextListener(object :
             android.widget.SearchView.OnQueryTextListener,
             SearchView.OnQueryTextListener {
