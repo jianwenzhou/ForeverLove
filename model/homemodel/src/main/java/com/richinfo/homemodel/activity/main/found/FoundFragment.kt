@@ -96,9 +96,9 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
         val hashMap: HashMap<String, Int> = HashMap()
         hashMap[SpacesItemDecoration.LEFT] = ConvertUtils.dp2px(40f)
-        hashMap[SpacesItemDecoration.TOP] = ConvertUtils.dp2px(40f)
+        hashMap[SpacesItemDecoration.TOP] = ConvertUtils.dp2px(10f)
         hashMap[SpacesItemDecoration.RIGHT] = ConvertUtils.dp2px(40f)
-        hashMap[SpacesItemDecoration.BOTTOM] = ConvertUtils.dp2px(40f)
+        hashMap[SpacesItemDecoration.BOTTOM] = ConvertUtils.dp2px(10f)
         recyclerView.addItemDecoration(
             SpacesItemDecoration(
                 hashMap

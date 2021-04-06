@@ -28,6 +28,8 @@ class FoundDetailsActivity : BaseActivity() {
 
     private lateinit var adapter: FoundDetailsAdapter
 
+    private var data: CaiPuDatas? = null
+
     override fun getLayoutID(): Int {
         return R.layout.homemodel_activity_found_details
     }
@@ -93,12 +95,8 @@ class FoundDetailsActivity : BaseActivity() {
     }
 
 
-    private val data: CaiPuDatas?
-        get() {
-            return bundle?.getParcelable(BundleConst.HOMEMODEL_CAIPU_KEY)
-        }
-
     override fun initData() {
+        data = bundle?.getParcelable(BundleConst.HOMEMODEL_CAIPU_KEY)
         //设置cover
         GlideUtils.loadImage(this, data?.largeImg, activity_found_details_cover_iv)
         GlideUtils.loadImage(this, data?.smallImg, activity_found_details_user_iv)

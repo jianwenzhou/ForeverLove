@@ -158,7 +158,7 @@ data class CaiPuDatas(
 data class Step(
     val content: String,
     val imgUrl: String,
-    val old_imgUrl: String,
+    val old_imgUrl: String?,
     val orderNum: Int
 
 ) : Parcelable {
