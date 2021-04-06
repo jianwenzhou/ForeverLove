@@ -81,8 +81,8 @@ class SplashActivity : BaseActivity() {
         //获取位置信息
         val locations = LocationUtils.getLocations(this)
         //获取天气信息,裁剪掉 市 字
-        Lg.d("city=$locations")
         val city = locations.substring(0, locations.length - 1)
+        Lg.d("city=$locations")
 
         viewModel.getSimpleWeather(city)
 
