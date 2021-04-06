@@ -97,7 +97,7 @@ class ImageCropFragment : BaseFragment() {
      */
     private fun setBackground(bitmap: Bitmap, bgView: ImageView?) {
         //放大并模糊
-        val bg = BlurUtils.setBackgroue(bitmap, 30, 5)
+        val bg = BlurUtils.setBackgroue(bitmap, 50, 5)
         //设置给背景
         bgView?.setImageBitmap(bg)
     }

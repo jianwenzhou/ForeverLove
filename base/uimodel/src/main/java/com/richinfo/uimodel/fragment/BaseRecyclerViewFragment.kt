@@ -50,7 +50,8 @@ abstract class BaseRecyclerViewFragment : BaseLazyFragment(), SwipeRefreshLayout
     }
 
     private fun initToolBar() {
-        toolbarContainer.addView(createToolBar())
+        if (createToolBar() != null)
+            toolbarContainer.addView(createToolBar())
     }
 
     /**

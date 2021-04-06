@@ -2,7 +2,6 @@ package com.richinfo.homemodel.activity.main.world
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.cons.BundleConst
@@ -12,7 +11,6 @@ import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
 import com.richinfo.httpmodel.api.entity.ImageEntity
 import com.richinfo.uimodel.fragment.BaseRecyclerViewFragment
-import kotlinx.android.synthetic.main.homemodel_fragment_main_world.*
 
 
 /**
@@ -53,7 +51,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
      * 搜索按钮
      */
     private fun initSearchView() {
-        homemodel_search_view?.setOnQueryTextListener(object :
+       /* homemodel_search_view?.setOnQueryTextListener(object :
             android.widget.SearchView.OnQueryTextListener,
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -68,7 +66,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
                 Lg.d("zjw newText=$newText")
                 return false
             }
-        })
+        })*/
     }
 
     /**
