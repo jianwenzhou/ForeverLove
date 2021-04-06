@@ -3,7 +3,6 @@ package com.richinfo.homemodel.activity.main.found
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jareven.basemodel.mvp.BasePresenter
-import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.activity.main.world.CommonView
 import com.richinfo.httpmodel.api.entity.AliRecipeEntity
 import com.richinfo.httpmodel.api.manager.CallBackWrapper
@@ -74,8 +73,11 @@ class FoundPresenter(owner: Fragment, private var view: CommonView<AliRecipeEnti
                 }
 
                 override fun onError(msg: String, code: Int) {
-                    onDataFail(false, msg)
-                    Lg.d("onError$msg")
+                    if (code == 0) {
+                        onDataFail(false, "没有搜索到内容..")
+                    } else {
+                        onDataFail(false, msg)
+                    }
                 }
             }
             )

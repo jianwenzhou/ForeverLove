@@ -7,13 +7,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.LogUtils
 import com.jareven.basemodel.base.BaseActivity
 import com.jareven.basemodel.callback.PermissionCallback
 import com.jareven.basemodel.cons.RouterPathConst
 import com.jareven.basemodel.utils.FToastUtils
 import com.jareven.basemodel.utils.LocationUtils
 import com.jareven.foreverlove.activity.splash.SplashViewModel
-import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.WeatherEntity
 import kotlinx.android.synthetic.main.homemodel_activity_splash.*
@@ -82,7 +82,7 @@ class SplashActivity : BaseActivity() {
         val locations = LocationUtils.getLocations(this)
         //获取天气信息,裁剪掉 市 字
         val city = locations.substring(0, locations.length - 1)
-        Lg.d("city=$locations")
+        LogUtils.d("city=$locations")
 
         viewModel.getSimpleWeather(city)
 

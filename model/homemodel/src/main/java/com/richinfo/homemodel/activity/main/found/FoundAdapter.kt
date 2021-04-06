@@ -1,13 +1,13 @@
 package com.richinfo.homemodel.activity.main.found
 
 import android.widget.ImageView
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.jareven.basemodel.utils.GlideUtils.loadImage
 import com.jareven.basemodel.utils.GradientDrawableUtils
-import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.CaiPuDatas
 
@@ -23,7 +23,7 @@ class FoundAdapter(layoutResId: Int, data: MutableList<CaiPuDatas>) :
 
     override fun convert(holder: BaseViewHolder, item: CaiPuDatas) {
 
-        Lg.d("FoundAdapter convert=${holder.layoutPosition}")
+        LogUtils.d("FoundAdapter convert=${holder.layoutPosition}")
 
         val view = holder.getView<ImageView>(R.id.found_item_cover_iv)
 

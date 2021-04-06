@@ -9,11 +9,11 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.jareven.basemodel.callback.PermissionCallback
 import com.jareven.basemodel.dialog.LoadingViewDialog
 import com.jareven.basemodel.manager.ActivityCollector
-import com.jareven.thirdlibrary.Lg
 import com.yanzhenjie.permission.AndPermission
 
 /**
@@ -32,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun initActivity() {
         //打印当前Activity名称
-        Lg.d("BaseActivity:" + javaClass.simpleName)
+        LogUtils.d("BaseActivity:" + javaClass.simpleName)
         //Activity管理器
         ActivityCollector.addActivity(this)
         //传递参数注入

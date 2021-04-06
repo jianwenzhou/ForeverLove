@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.jareven.basemodel.base.BaseActivity
@@ -69,7 +68,7 @@ open class MainActivity : BaseActivity() {
         //底部导航栏和ViewPager2绑定
         VMainBottomBar.setupWithViewPager2(VMainViewPager)
         //viewPager切换监听
-        VMainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+       /* VMainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 if (position == 2) {
@@ -80,7 +79,7 @@ open class MainActivity : BaseActivity() {
                     setStatusBar(true)
                 }
             }
-        })
+        })*/
     }
 
     override fun initData() {

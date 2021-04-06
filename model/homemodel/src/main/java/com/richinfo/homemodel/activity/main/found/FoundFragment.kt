@@ -3,19 +3,21 @@ package com.richinfo.homemodel.activity.main.found
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
+import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
-import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.homemodel.activity.main.world.CommonView
 import com.richinfo.httpmodel.api.entity.AliRecipeEntity
 import com.richinfo.httpmodel.api.entity.CaiPuDatas
 import com.richinfo.uimodel.fragment.BaseRecyclerViewFragment
 import com.richinfo.uimodel.recyclerview.SpacesItemDecoration
+import kotlinx.android.synthetic.main.homemodel_fragment_main_toolbar.*
 import kotlin.math.roundToInt
 
 /**
@@ -34,19 +36,47 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
 
     private var firstUpdate = true
 
+    private var searchKey: String = "牛肉"
+
     override fun initView(view: View?) {
         super.initView(view)
         initStatusBar()
         initRecyclerView()
+        initSearchView()
     }
 
     override fun createToolBar(): View? {
-        return View.inflate(context, R.layout.homemodel_fragment_main_found, null)
+        return View.inflate(context, R.layout.homemodel_fragment_main_toolbar, null)
     }
 
     private fun initStatusBar() {
         setStateBarView(R.id.homemodel_status_bar_fl)
     }
+
+    /**
+     * 搜索按钮
+     */
+    private fun initSearchView() {
+        homemodel_search_view?.setOnQueryTextListener(object :
+            android.widget.SearchView.OnQueryTextListener,
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    searchKey = query
+                    loadData(true)
+                    //取消焦点，第一次进入后强制取消焦点，则不会弹起键盘
+                    homemodel_search_view?.clearFocus()
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                LogUtils.d("zjw newText=$newText")
+                return false
+            }
+        })
+    }
+
 
     /**
      * 图片列表
@@ -78,7 +108,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
         adapter.loadMoreModule.setOnLoadMoreListener { loadData(false) }
 
         adapter.setOnItemClickListener { adapter, view, position ->
-            Lg.d("FoundFragment OnItemClickListener")
+            LogUtils.d("FoundFragment OnItemClickListener")
             val item = adapter.getItem(position) as CaiPuDatas
 
             val activityOptionsCompat: ActivityOptionsCompat =
@@ -125,7 +155,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
     }
 
     override fun loadData(pullToRefresh: Boolean) {
-        presenter.loadData(pullToRefresh, "", "", "土豆")
+        presenter.loadData(pullToRefresh, "", "", searchKey)
     }
 
     override fun setData(list: AliRecipeEntity) {

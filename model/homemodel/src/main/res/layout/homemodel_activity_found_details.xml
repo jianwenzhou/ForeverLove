@@ -61,7 +61,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="@dimen/dp_24"
-                    android:src="@mipmap/uimodel_icon_common_back"
+                    android:src="@mipmap/uimodel_icon_page_back"
                     tools:ignore="ContentDescription" />
 
 

@@ -3,7 +3,7 @@ package com.jareven.basemodel.utils
 import android.app.Activity
 import android.content.ComponentName
 import android.content.pm.PackageManager
-import com.jareven.thirdlibrary.Lg
+import com.blankj.utilcode.util.LogUtils
 
 /**
  * @ClassName AppUtli
@@ -23,7 +23,7 @@ class MyAppUtils {
      * 动态改变APP图标
      */
     fun switchAppIcon(context: Activity, isChange: Boolean, flag: Int) {
-        Lg.d("zjw switchAppIcon=$flag")
+        LogUtils.d("zjw switchAppIcon=$flag")
         val pm = context.packageManager
 
         val aliasName = getAliasName(flag)

@@ -3,7 +3,7 @@ package com.richinfo.homemodel.activity.splash
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.jareven.thirdlibrary.Lg
+import com.blankj.utilcode.util.LogUtils
 
 /**
  * @ClassName LoginWorker
@@ -17,13 +17,13 @@ class LoginWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
     override fun doWork(): Result {
         val name = Thread.currentThread().name
-        Lg.d("zjw  doWork:$name")
+        LogUtils.d("zjw  doWork:$name")
         return Result.success()
     }
 
     override fun onStopped() {
         super.onStopped()
         val name = Thread.currentThread().name
-        Lg.d("zjw  onStopped:$name")
+        LogUtils.d("zjw  onStopped:$name")
     }
 }

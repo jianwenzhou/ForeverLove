@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/homemodel_status_bar_fl"
+        layout="@layout/basemodel_status_bar_group" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/homemodel_common_toolbar_44dp">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/homemodel_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            app:closeIcon="@mipmap/uimodel_icon_circle_back"
+            app:iconifiedByDefault="false"
+            app:queryHint="开始探索美好.."
+            app:searchIcon="@mipmap/homemodel_icon_search" />
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
+
+

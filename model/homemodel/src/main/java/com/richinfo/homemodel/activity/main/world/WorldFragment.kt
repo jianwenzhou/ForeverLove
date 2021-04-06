@@ -2,15 +2,17 @@ package com.richinfo.homemodel.activity.main.world
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jareven.basemodel.cons.BundleConst
 import com.jareven.basemodel.cons.RouterPathConst
-import com.jareven.thirdlibrary.Lg
 import com.richinfo.homemodel.R
 import com.richinfo.httpmodel.api.entity.Hit
 import com.richinfo.httpmodel.api.entity.ImageEntity
 import com.richinfo.uimodel.fragment.BaseRecyclerViewFragment
+import kotlinx.android.synthetic.main.homemodel_fragment_main_toolbar.*
 
 
 /**
@@ -29,7 +31,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
     private var firstUpdate = true
 
-    private var searchKey: String = "风景"
+    private var searchKey: String = "爱情"
 
 
     override fun initView(view: View?) {
@@ -40,7 +42,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
     }
 
     override fun createToolBar(): View? {
-        return View.inflate(context, R.layout.homemodel_fragment_main_world, null)
+        return View.inflate(context, R.layout.homemodel_fragment_main_toolbar, null)
     }
 
     private fun initStatusBar() {
@@ -51,22 +53,24 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
      * 搜索按钮
      */
     private fun initSearchView() {
-       /* homemodel_search_view?.setOnQueryTextListener(object :
+        homemodel_search_view?.setOnQueryTextListener(object :
             android.widget.SearchView.OnQueryTextListener,
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     searchKey = query
                     loadData(true)
+                    //取消焦点，第一次进入后强制取消焦点，则不会弹起键盘
+                    homemodel_search_view?.clearFocus()
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Lg.d("zjw newText=$newText")
+                LogUtils.d("zjw newText=$newText")
                 return false
             }
-        })*/
+        })
     }
 
     /**
@@ -90,7 +94,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
 
         adapter.setOnItemClickListener { adapter, _, position ->
-            Lg.d("click$position")
+            LogUtils.d("click$position")
             val data =
                 adapter.data.filterIsInstance<Hit>() as ArrayList<Hit>
 

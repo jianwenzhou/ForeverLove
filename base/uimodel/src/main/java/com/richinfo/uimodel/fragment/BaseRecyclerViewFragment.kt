@@ -50,8 +50,10 @@ abstract class BaseRecyclerViewFragment : BaseLazyFragment(), SwipeRefreshLayout
     }
 
     private fun initToolBar() {
-        if (createToolBar() != null)
-            toolbarContainer.addView(createToolBar())
+        val toolbar = createToolBar()
+        toolbar?.let { it ->
+            toolbarContainer.addView(it)
+        }
     }
 
     /**

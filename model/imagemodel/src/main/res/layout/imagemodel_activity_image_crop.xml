@@ -17,7 +17,7 @@
         android:layout_height="18dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
-        android:src="@mipmap/uimodel_icon_common_back"
+        android:src="@mipmap/uimodel_icon_page_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
