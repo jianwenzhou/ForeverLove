@@ -65,8 +65,7 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
                 if (query != null) {
                     searchKey = query
                     loadData(true)
-                    //取消焦点，第一次进入后强制取消焦点，则不会弹起键盘
-                    homemodel_search_view?.clearFocus()
+                    clearFocus()
                 }
                 return false
             }
@@ -109,7 +108,9 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
         adapter.loadMoreModule.setOnLoadMoreListener { loadData(false) }
 
         adapter.setOnItemClickListener { adapter, view, position ->
-            LogUtils.d("FoundFragment OnItemClickListener")
+
+            clearFocus()
+
             val item = adapter.getItem(position) as CaiPuDatas
 
             val activityOptionsCompat: ActivityOptionsCompat =
@@ -135,6 +136,17 @@ class FoundFragment : BaseRecyclerViewFragment(), CommonView<AliRecipeEntity> {
             }
         }
 
+    }
+
+    /**
+     * 取消焦点，第一次进入后强制取消焦点，则不会弹起键盘
+     */
+    private fun clearFocus() {
+        homemodel_search_view?.clearFocus()
+    }
+
+    override fun onScrolled() {
+        clearFocus()
     }
 
     override fun onRefresh() {

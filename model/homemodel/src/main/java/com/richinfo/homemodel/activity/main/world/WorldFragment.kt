@@ -61,8 +61,7 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
                 if (query != null) {
                     searchKey = query
                     loadData(true)
-                    //取消焦点，第一次进入后强制取消焦点，则不会弹起键盘
-                    homemodel_search_view?.clearFocus()
+                    clearFocus()
                 }
                 return false
             }
@@ -72,6 +71,13 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
                 return false
             }
         })
+    }
+
+    /**
+     * 取消焦点，第一次进入后强制取消焦点，则不会弹起键盘
+     */
+    private fun clearFocus() {
+        homemodel_search_view?.clearFocus()
     }
 
     /**
@@ -95,7 +101,9 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
 
 
         adapter.setOnItemClickListener { adapter, _, position ->
-            LogUtils.d("click$position")
+
+            clearFocus()
+
             val data =
                 adapter.data.filterIsInstance<Hit>() as ArrayList<Hit>
 
@@ -110,6 +118,10 @@ class WorldFragment : BaseRecyclerViewFragment(), CommonView<ImageEntity> {
             )
 
         }
+    }
+
+    override fun onScrolled() {
+        clearFocus()
     }
 
 

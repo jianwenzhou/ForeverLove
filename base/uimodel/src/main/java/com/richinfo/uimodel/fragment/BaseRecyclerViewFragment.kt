@@ -37,6 +37,23 @@ abstract class BaseRecyclerViewFragment : BaseLazyFragment(), SwipeRefreshLayout
         }
         initRefreshView()
         initToolBar()
+        initRecyclerViewListener()
+    }
+
+    private fun initRecyclerViewListener() {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                onScrolled()
+            }
+        })
+    }
+
+    /**
+     * RecyclerView滑动事件监听，子类可以重新
+     */
+    protected open fun onScrolled() {
+
     }
 
     private fun initRefreshView() {
